@@ -1,6 +1,6 @@
 [submodule "private"]
 	path = private
-	url = ../../levanovd/cpp-private.git
+	url = git@gitlab.cpp-hse.ru:mfgnik/2023-cpp-se-private.git
 [submodule "grader"]
 	path = grader
-	url = ../../levanovd/cpp-grader.git
+	url = git@gitlab.cpp-hse.ru:levanovd/cpp-grader.git

@@ -10,7 +10,7 @@
       score: 100
     - task: is_leap
       score: 100
-    - task: sum_digits
+    - task: fibonacci
       score: 100
     - task: min_divisor
       score: 100

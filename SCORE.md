@@ -28,8 +28,3 @@
 Итоговый балл за ДЗ ![encoding](https://latex.codecogs.com/svg.image?HW) является средней оценкой за недельные ДЗ и вычисляется по формуле:
 
   ![encoding](https://latex.codecogs.com/svg.image?\frac{Sum_{total}}{Weeks}), где ![encoding](https://latex.codecogs.com/svg.image?Sum_{total}) - сумма оценок за все недельные ДЗ, ![encoding](https://latex.codecogs.com/svg.image?Weeks) - количество выданных недельных ДЗ
-
-## Проект
-
-Правила начисления оценки за проект будут объявлены при публикации проекта.
-

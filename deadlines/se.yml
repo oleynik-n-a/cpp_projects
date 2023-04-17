@@ -1,6 +1,6 @@
 - group: 01-homework-one
   start: 08-04-2023 00:00
-  deadline: 20-04-2023 23:59
+  deadline: 22-04-2023 23:59
   tasks:
     - task: multiplication
       score: 100

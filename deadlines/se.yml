@@ -20,3 +20,23 @@
       score: 100
     - task: reduce_fraction
       score: 100
+
+
+- group: 02-homework-two
+  start: 19-04-2023 16:00
+  deadline: 29-04-2023 23:59
+  tasks:
+    - task: const_diagonal
+      score: 100
+    - task: variable_diagonal
+      score: 100
+    - task: palindrome
+      score: 100
+    - task: password
+      score: 100
+    - task: range
+      score: 100
+    - task: factorization
+      score: 100
+    - task: sort_students
+      score: 100

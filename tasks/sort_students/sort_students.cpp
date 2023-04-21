@@ -1,5 +1,3 @@
-#include <algorithm>
-#include <iostream>
 #include "sort_students.h"
 
 bool DateComparison(Student st1, Student st2) {
@@ -19,7 +17,8 @@ bool NameComparison(Student st1, Student st2) {
 }
 
 bool CompareByDate(Student st1, Student st2) {
-    if (st1.birth_date.year == st2.birth_date.year && st1.birth_date.month == st2.birth_date.month &&        st1.birth_date.day == st2.birth_date.day) {
+    if (st1.birth_date.year == st2.birth_date.year && st1.birth_date.month == st2.birth_date.month &&
+        st1.birth_date.day == st2.birth_date.day) {
         return NameComparison(st1, st2);
     }
     return DateComparison(st1, st2);

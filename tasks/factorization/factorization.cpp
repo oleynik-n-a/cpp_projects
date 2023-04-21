@@ -24,8 +24,7 @@ std::vector<std::pair<int64_t, int>> Factorize(int64_t x) {
         if (x % div == 0) {
             ++div_count;
             x /= div;
-        }
-        else {
+        } else {
             if (div_count != 0) {
                 divisors.emplace_back(div, div_count);
                 div_count = 0;

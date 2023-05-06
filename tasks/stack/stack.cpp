@@ -20,8 +20,7 @@ Stack::~Stack() {
 }
 
 void Stack::Push(int32_t value) {
-    if (size_ == 0)
-    {
+    if (size_ == 0) {
         head_->value = value;
         size_ = 1;
     } else {

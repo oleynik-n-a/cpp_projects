@@ -2,11 +2,10 @@
 
 template <class Iterator, class T>
 Iterator FindLast(Iterator first, Iterator last, const T& val) {
-    Iterator ans = last;
-    for (Iterator i = first; i < last; ++i) {
+    for (Iterator i = last - 1; i >= first; --i) {
         if (*i == val) {
-            ans = i;
+            return i;
         }
     }
-    return ans;
+    return first;
 }

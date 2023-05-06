@@ -54,6 +54,7 @@ void Stack::Clear() {
     }
     delete head_;
     head_ = new Node(0, 0);
+    size_ = 0;
 }
 
 bool Stack::Empty() const {

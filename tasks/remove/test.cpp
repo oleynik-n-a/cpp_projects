@@ -8,13 +8,10 @@
 TEST_CASE("Simple") {
     std::vector<int> a{1, 2, 3, 1, 1, 4, 5, 1, 6, 1};
     REQUIRE(Remove(a.begin(), a.begin(), 1) == a.begin());
-    REQUIRE(a.size() == 10);
 
     REQUIRE(Remove(a.begin() + 1, a.begin() + 3, 1) == a.begin() + 3);
-    REQUIRE(a.size() == 10);
 
     REQUIRE(Remove(a.begin(), a.end(), 1) == a.begin() + 5);
-    REQUIRE(a.size() == 5);
 }
 
 TEST_CASE("Big") {

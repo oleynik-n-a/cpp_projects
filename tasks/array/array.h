@@ -87,6 +87,9 @@ Array<T>::~Array() {
 
 template <class T>
 Array<T>& Array<T>::operator=(const Array& other) {
+    if (data_) {
+        delete[] data_;
+    }
     size_ = other.size_;
     data_ = new T[size_];
     for (size_t i = 0; i < size_; ++i) {

@@ -81,7 +81,7 @@ Array<T>::Array(const Array& other) {
 template <class T>
 Array<T>::~Array() {
     if (data_) {
-        delete data_;
+        delete[] data_;
     }
 }
 

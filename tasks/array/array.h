@@ -26,7 +26,7 @@ public:
 
     const T& operator[](size_t index) const;
 
-    size_t size() const; // NOLINT
+    size_t size() const;  // NOLINT
 
     class Iterator {
     public:
@@ -42,9 +42,9 @@ public:
         T* current_;
     };
 
-    Iterator begin() const; // NOLINT
+    Iterator begin() const;  // NOLINT
 
-    Iterator end() const; // NOLINT
+    Iterator end() const;  // NOLINT
 };
 
 template <class T>
@@ -116,8 +116,7 @@ Array<T>::Iterator::Iterator(T* current) {
 }
 
 template <class T>
-typename Array<T>::Iterator&
-Array<T>::Iterator::operator++() {
+typename Array<T>::Iterator& Array<T>::Iterator::operator++() {
     ++current_;
     return *this;
 }
@@ -133,13 +132,11 @@ bool Array<T>::Iterator::operator!=(const Array::Iterator& other) {
 }
 
 template <class T>
-typename Array<T>::Iterator
-Array<T>::begin() const {
+typename Array<T>::Iterator Array<T>::begin() const {
     return Iterator(data_);
 }
 
 template <class T>
-typename Array<T>::Iterator
-Array<T>::end() const {
+typename Array<T>::Iterator Array<T>::end() const {
     return Iterator(data_ + size_);
 }

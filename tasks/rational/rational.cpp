@@ -95,8 +95,20 @@ Rational& operator++(Rational& ratio) {
     return ratio += Rational(1);
 }
 
+Rational operator++(Rational& ratio, int) {
+    Rational result = ratio;
+    ++ratio;
+    return result;
+}
+
 Rational& operator--(Rational& ratio) {
     return ratio -= Rational(1);
+}
+
+Rational operator--(Rational& ratio, int) {
+    Rational result = ratio;
+    --ratio;
+    return result;
 }
 
 bool operator==(const Rational& lhs, const Rational& rhs) {
@@ -127,4 +139,16 @@ std::ostream& operator<<(std::ostream& ostream, const Rational& ratio) {
     ostream << ratio.GetNumerator();
     ratio.GetDenominator() == 1 ? ostream : ostream << '/' << ratio.GetDenominator();
     return ostream;
+}
+
+std::istream& operator>>(std::istream& istream, Rational& ratio) {
+    int numer = 1;
+    int denom = 1;
+    istream >> numer;
+    if (istream.peek() == '/') {
+        istream.ignore();
+        istream >> denom;
+    }
+    ratio.Set(numer, denom);
+    return istream;
 }

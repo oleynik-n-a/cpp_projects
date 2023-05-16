@@ -4,10 +4,10 @@
 #include "provinces.h"
 
 // NOLINTBEGIN
-TEST_CASE("Tests") {
+TEST_CASE("Simple") {
     REQUIRE(3 == CountPassports({1, 2}));
 
-    REQUIRE(10 == CountPassports({1, 2, 4})););
+    REQUIRE(10 == CountPassports({1, 2, 4}));
 }
 
 TEST_CASE("Stress") {

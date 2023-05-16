@@ -57,7 +57,7 @@ TEST_CASE("Test Iteration") {
 
     size_t current = 0;
 
-    for (auto element : a) {
+    for (size_t element : a) {
         REQUIRE(element == current);
         ++current;
     }

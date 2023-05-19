@@ -1,4 +1,5 @@
 #include "tests_checking.h"
+
 #include <deque>
 
 std::vector<std::string> StudentsOrder(const std::vector<StudentAction>& student_actions,

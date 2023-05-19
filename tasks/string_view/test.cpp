@@ -1,7 +1,6 @@
 #include <catch.hpp>
 
 #include "string_view.h"
-#include "string_view.h"
 
 void Equal(const StringView& actual, const char* expected, size_t n) {
     REQUIRE(actual.Data() == expected);
@@ -80,4 +79,3 @@ TEST_CASE("Swap", "[Modifications]") {
     Equal(sv, str + 2, 7);
 }
 // NOLINTEND
-

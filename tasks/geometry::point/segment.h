@@ -21,10 +21,6 @@ public:
         return *this;
     };
 
-    std::string ToString() const override {
-        return "";
-    };
-
     bool ContainsPoint(const Point& point) const override {
         return false;
     }

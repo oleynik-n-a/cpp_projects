@@ -22,8 +22,6 @@ public:
 
     Point* Clone() const override;
 
-    std::string ToString() const override;
-
     Point() = default;
 
     Point(int64_t, int64_t);

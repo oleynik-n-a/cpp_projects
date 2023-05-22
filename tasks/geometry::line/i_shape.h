@@ -18,7 +18,5 @@ public:
     virtual bool CrossesSegment(const Segment&) const = 0;
 
     virtual IShape* Clone() const = 0;
-
-    virtual std::string ToString() const = 0;
 };
 }  // namespace geometry

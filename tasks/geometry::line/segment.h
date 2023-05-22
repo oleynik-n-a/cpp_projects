@@ -20,11 +20,6 @@ public:
     Segment& Move(const Vector& vector) override {
         return *this;
     };
-
-    std::string ToString() const override {
-        return "";
-    };
-
     bool ContainsPoint(const Point& point) const override {
         return false;
     }

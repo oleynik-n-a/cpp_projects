@@ -4,7 +4,7 @@
 #include "point.h"
 #include "segment.h"
 
-void TestCirclePrivate(int64_t center_x, int64_t center_y, int64_t radius, int64_t a_x, int64_t a_y, int64_t b_x,
+void TestCircle(int64_t center_x, int64_t center_y, int64_t radius, int64_t a_x, int64_t a_y, int64_t b_x,
                        int64_t b_y, bool contains, bool crosses, int64_t moved_center_x, int64_t moved_center_y) {
     geometry::Point center(center_x, center_y);
     geometry::Circle c(center, radius);
@@ -24,7 +24,7 @@ void TestCirclePrivate(int64_t center_x, int64_t center_y, int64_t radius, int64
 
 // NOLINTBEGIN
 TEST_CASE("Circle") {
-    TestCirclePrivate(0, 0, 5, 0, 0, 5, 5, true, true, 5, 5);
-    TestCirclePrivate(0, 0, 5, 9, 8, -5, 3, false, true, -14, -5);
+    TestCircle(0, 0, 5, 0, 0, 5, 5, true, true, 5, 5);
+    TestCircle(0, 0, 5, 9, 8, -5, 3, false, true, -14, -5);
 }
 // NOLINTEND

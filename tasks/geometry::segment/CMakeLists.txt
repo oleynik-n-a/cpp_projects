@@ -1,1 +1,1 @@
-add_catch(test_geometry_polygon line.cpp test.cpp vector.cpp point.cpp segment.cpp)
+add_catch(test_geometry_segment line.cpp test.cpp vector.cpp point.cpp segment.cpp)

@@ -24,8 +24,6 @@ class Line : public IShape {
 
   Line& Move(const Vector& vector) override;
 
-  std::string ToString() const override;
-
   bool ContainsPoint(const Point& point) const override;
 
   bool CrossesSegment(const Segment& segment) const override;

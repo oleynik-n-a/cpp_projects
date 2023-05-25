@@ -21,8 +21,6 @@ AdmissionTable FillUniversities(const std::vector<University>& universities, con
     for (Applicant applicant : sorted_applicants) {
         Enroll(applicant, universities, table);
     }
-
-
     return table;
 }
 

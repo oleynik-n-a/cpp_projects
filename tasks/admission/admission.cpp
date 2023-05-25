@@ -21,19 +21,9 @@ AdmissionTable FillUniversities(const std::vector<University>& universities, con
     for (Applicant applicant : sorted_applicants) {
         Enroll(applicant, universities, table);
     }
-    for (University university : universities) {
+    for (const University& university : universities) {
         std::sort(table[university.name].begin(), table[university.name].end(), CompareStudents);
     }
-    std::cout << table["MSU"][0] << "\n";
-
-    for (std::pair pair : table) {
-        std::cout << pair.first << " | ";
-        for (const Student* student : table[pair.first]) {
-            std::cout << student->name << ", ";
-        }
-        std::cout << "\n";
-    }
-
     return table;
 }
 

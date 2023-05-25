@@ -22,13 +22,6 @@ AdmissionTable FillUniversities(const std::vector<University>& universities, con
         Enroll(applicant, universities, table);
     }
 
-    for (std::pair pair : table) {
-        std::cout << pair.first << " | ";
-        for (const Student* student : table[pair.first]) {
-            std::cout << student->name << ", ";
-        }
-        std::cout << "\n";
-    }
 
     return table;
 }

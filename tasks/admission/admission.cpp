@@ -24,6 +24,17 @@ AdmissionTable FillUniversities(const std::vector<University>& universities, con
     for (const University& university : universities) {
         std::sort(table[university.name].begin(), table[university.name].end(), CompareStudents);
     }
+
+    std::cout << table["MSU"][0] << "\n";
+
+    for (std::pair pair : table) {
+        std::cout << pair.first << " | ";
+        for (const Student* student : table[pair.first]) {
+            std::cout << student->name << ", ";
+        }
+        std::cout << "\n";
+    }
+
     return table;
 }
 
@@ -70,12 +81,12 @@ bool CompareApplicants(Applicant first, Applicant second) {
     } else if (first.student.birth_date != second.student.birth_date) {
         return DateComparison(first.student, second.student);
     }
-    return first.student.name.compare(second.student.name);
+    return first.student.name < second.student.name;
 }
 
 bool CompareStudents(const Student* first, const Student* second) {
     if ((*first).name != (*second).name) {
-        return (*first).name.compare((*second).name);
+        return (*first).name < (*second).name;
     }
     return DateComparison(*first, *second);
 }

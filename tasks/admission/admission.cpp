@@ -21,8 +21,13 @@ AdmissionTable FillUniversities(const std::vector<University>& universities, con
     for (Applicant applicant : sorted_applicants) {
         Enroll(applicant, universities, table);
     }
-    for (const University& university : universities) {
-        std::sort(table[university.name].begin(), table[university.name].end(), CompareStudents);
+
+    for (std::pair pair : table) {
+        std::cout << pair.first << " | ";
+        for (const Student* student : table[pair.first]) {
+            std::cout << student->name << ", ";
+        }
+        std::cout << "\n";
     }
 
     return table;
@@ -38,7 +43,7 @@ void Enroll(Applicant& applicant, const std::vector<University>& universities, A
     for (std::string& university_name : applicant.wish_list) {
         bool is_enrolled = false;
         for (University university : universities) {
-            if (university_name == university.name && university.max_students > 0) {
+            if (university_name == university.name && university.max_students > table[university_name].size()) {
                 --university.max_students;
                 table[university_name].push_back(&applicant.student);
                 is_enrolled = true;
@@ -72,11 +77,4 @@ bool CompareApplicants(Applicant first, Applicant second) {
         return DateComparison(first.student, second.student);
     }
     return first.student.name < second.student.name;
-}
-
-bool CompareStudents(const Student* first, const Student* second) {
-    if ((*first).name != (*second).name) {
-        return (*first).name < (*second).name;
-    }
-    return DateComparison(*first, *second);
 }

@@ -2,7 +2,7 @@
 
 #include <vector>
 
-int Scalar(std::vector<int> vector1, std::vector<int> vector2) {
+int Scalar(const std::vector<int> vector1, const std::vector<int> vector2) {
     int scalar = 0;
     for (int i = 0; i < static_cast<int>(vector1.size()); ++i) {
         scalar += vector1[i] * vector2[i];

@@ -14,7 +14,7 @@ std::vector<std::string> FindClosestWords(const std::vector<std::string>& words,
                                           const std::vector<std::vector<int>>& vectors) {
     if (vectors.size() > 1) {
         std::vector<std::string> output;
-        int max = Scalar(vectors[0], vectors[1]);
+        int max = static_cast<int>(Scalar(vectors[0], vectors[1]));
         for (int i = 2; i < static_cast<int>(vectors.size()); ++i) {
             int scalar = Scalar(vectors[0], vectors[i]);
             if (max < scalar) {

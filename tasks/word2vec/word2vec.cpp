@@ -2,7 +2,7 @@
 
 #include <vector>
 
-int Scalar(const std::vector<int> vector1, const std::vector<int> vector2) {
+int Scalar(const std::vector<int>& vector1, const std::vector<int>& vector2) {
     int scalar = 0;
     for (int i = 0; i < static_cast<int>(vector1.size()); ++i) {
         scalar += vector1[i] * vector2[i];
@@ -22,8 +22,7 @@ std::vector<std::string> FindClosestWords(const std::vector<std::string>& words,
             }
         }
         for (int i = 1; i < static_cast<int>(vectors.size()); ++i) {
-            int scalar = Scalar(vectors[0], vectors[i]);
-            if (max == scalar) {
+            if (max == Scalar(vectors[0], vectors[i])) {
                 output.push_back(words[i]);
             }
         }

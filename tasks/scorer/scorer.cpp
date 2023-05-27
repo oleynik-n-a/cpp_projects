@@ -12,7 +12,9 @@ ScoreTable GetScoredStudents(const Events& events, time_t score_time) {
             events_copy[i].event_type == EventType::MergeRequestClosed) {
             score_table[events_copy[i].student_name].insert(events_copy[i].task_name);
         } else {
-            score_table[events_copy[i].student_name].erase(events_copy[i].task_name);
+            if (score_table.contains(events_copy[i].student_name)) {
+                score_table[events_copy[i].student_name].erase(events_copy[i].task_name);
+            }
         }
     }
     return score_table;

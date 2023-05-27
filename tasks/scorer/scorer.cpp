@@ -17,5 +17,10 @@ ScoreTable GetScoredStudents(const Events& events, time_t score_time) {
             }
         }
     }
+    for (const auto& pair : score_table) {
+        if (pair.second.empty()) {
+            score_table.erase(pair.first);
+        }
+    }
     return score_table;
 }

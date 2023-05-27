@@ -28,5 +28,5 @@ std::vector<std::string> FindClosestWords(const std::vector<std::string>& words,
         }
         return output;
     }
-    return std::vector<std::string>{words[0]};
+    return std::vector<std::string>{};
 }

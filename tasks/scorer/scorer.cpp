@@ -2,10 +2,7 @@
 
 ScoreTable GetScoredStudents(const Events& events, time_t score_time) {
     Events events_copy = events;
-    sort(events_copy.begin(), events_copy.end(),
-            [] (Event event1, Event event2) {
-                return event1.time < event2.time;
-    });
+    sort(events_copy.begin(), events_copy.end(), [](Event event1, Event event2) { return event1.time < event2.time; });
     std::map<StudentName, std::set<TaskName>> score_table;
     for (size_t i = 0; i < events_copy.size(); ++i) {
         if ((events_copy[i].event_type == EventType::CheckSuccess ||

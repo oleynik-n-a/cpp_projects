@@ -1,34 +1,21 @@
 #include "scorer.h"
 
 ScoreTable GetScoredStudents(const Events& events, time_t score_time) {
+    Events events_copy = events;
+    sort(events_copy.begin(), events_copy.end(),
+            [] (Event event1, Event event2) {
+                return event1.time < event2.time;
+    });
     std::map<StudentName, std::set<TaskName>> score_table;
-    std::map<std::pair<StudentName, TaskName>, std::pair<bool, bool>> progress;
-    for (size_t i = 0; i < events.size(); ++i) {
-        progress[std::pair(events[i].student_name, events[i].task_name)].second = true;
-    }
-    for (size_t i = 0; i < events.size(); ++i) {
-        if (events[i].time <= score_time) {
-            if (events[i].event_type == EventType::CheckFailed) {
-                progress[std::pair(events[i].student_name, events[i].task_name)].first = false;
-            } else if (events[i].event_type == EventType::CheckSuccess) {
-                progress[std::pair(events[i].student_name, events[i].task_name)].first = true;
-            } else if (events[i].event_type == EventType::MergeRequestOpen) {
-                progress[std::pair(events[i].student_name, events[i].task_name)].second = false;
-            } else if (events[i].event_type == EventType::MergeRequestClosed) {
-                progress[std::pair(events[i].student_name, events[i].task_name)].second = true;
+    for (size_t i = 0; i < events_copy.size(); ++i) {
+        if ((events_copy[i].event_type == EventType::CheckSuccess ||
+             events_copy[i].event_type == EventType::MergeRequestClosed) &&
+            events_copy[i].time <= score_time) {
+            score_table[events_copy[i].student_name].insert(events_copy[i].task_name);
+        } else {
+            if (score_table.contains(events_copy[i].student_name)) {
+                score_table[events_copy[i].student_name].erase(events_copy[i].task_name);
             }
-            if (progress.contains(std::pair(events[i].student_name, events[i].task_name))) {
-                if (progress[std::pair(events[i].student_name, events[i].task_name)] == std::pair(true, true)) {
-                    score_table[events[i].student_name].insert(events[i].task_name);
-                } else {
-                    score_table[events[i].student_name].erase(events[i].task_name);
-                }
-            }
-        }
-    }
-    for (const auto& pair : score_table) {
-        if (pair.second.empty()) {
-            score_table.erase(pair.first);
         }
     }
     return score_table;

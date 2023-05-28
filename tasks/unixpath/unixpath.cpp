@@ -1,6 +1,9 @@
 #include "unixpath.h"
 
 std::string NormalizePath(std::string_view current_working_dir, std::string_view path) {
+    if (path.empty()) {
+        return std::string(current_working_dir);
+    }
     for (size_t current = 0; current < path.size() - 1; ++current) {
         if (path[current] == '/') {
             continue;
@@ -15,9 +18,10 @@ std::string NormalizePath(std::string_view current_working_dir, std::string_view
                 ++j;
             }
             current_working_dir =
-                std::string_view(std::string(current_working_dir) + "/" + std::string(path.substr(current, j)));
+                std::string_view(std::string(current_working_dir) + (current_working_dir.ends_with('/') ? "" : "/") +
+                std::string(path.substr(current, j)));
             current += j - 1;
-        };
+        }
     }
     if (current_working_dir.empty()) {
         return "/";

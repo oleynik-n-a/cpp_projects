@@ -16,5 +16,5 @@ TEST_CASE("GetScoredStudents") {
         {"Petrov", {"utf8"}},
     };
 
-    REQUIRE(expected_result == GetScoredStudents(events, 1600000010));
+    REQUIRE(expected_result == GetScoredStudents(events, 1600000004));
 }

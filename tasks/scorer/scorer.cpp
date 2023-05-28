@@ -7,8 +7,8 @@ ScoreTable GetScoredStudents(const Events& events, time_t score_time) {
     for (size_t i = 0; i < events.size(); ++i) {
         events_copy[i] = &events[i];
     }
-    sort(events_copy.begin(), events_copy.end(), [](const Event* event1, const Event* event2) {
-                                                                   return event1->time < event2->time; });
+    sort(events_copy.begin(), events_copy.end(),
+         [](const Event* event1, const Event* event2) { return event1->time < event2->time; });
     std::map<StudentName, std::set<TaskName>> score_table;
     for (size_t i = 0; i < events_copy.size(); ++i) {
         if (events_copy[i]->time > score_time) {

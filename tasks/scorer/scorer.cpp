@@ -1,5 +1,7 @@
 #include "scorer.h"
 
+#include <algorithm>
+
 ScoreTable GetScoredStudents(const Events& events, time_t score_time) {
     Events events_copy = events;
     sort(events_copy.begin(), events_copy.end(), [](Event event1, Event event2) { return event1.time < event2.time; });

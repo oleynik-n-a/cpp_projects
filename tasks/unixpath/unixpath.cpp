@@ -2,6 +2,9 @@
 
 std::string NormalizePath(std::string_view current_working_dir, std::string_view path) {
     std::string result = std::string(current_working_dir);
+    if (path == "/") {
+        return "/";
+    }
     if (path.starts_with('/') && path.size() > 1) {
         result.clear();
         result.push_back('/');
@@ -37,6 +40,9 @@ std::string NormalizePath(std::string_view current_working_dir, std::string_view
     }
     if (result.empty()) {
         return "/";
+    }
+    if (result.ends_with('/')) {
+        return result.substr(0, result.size() - 1);
     }
     return result;
 }

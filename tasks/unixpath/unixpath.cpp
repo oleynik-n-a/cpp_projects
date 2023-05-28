@@ -14,8 +14,8 @@ std::string NormalizePath(std::string_view current_working_dir, std::string_view
             while (current + j < path.size() && !(path[current + j] == '.' || path[current + j] == '/')) {
                 ++j;
             }
-            current_working_dir = std::string_view(std::string(current_working_dir) + "/" +
-                    std::string(path.substr(current, j)));
+            current_working_dir =
+                std::string_view(std::string(current_working_dir) + "/" + std::string(path.substr(current, j)));
             current += j - 1;
         };
     }

@@ -38,7 +38,7 @@ std::string NormalizePath(std::string_view current_working_dir, std::string_view
             }
         }
     }
-    if (result.empty()) {
+    if (result.empty() || result == "/") {
         return "/";
     }
     if (result.ends_with('/')) {

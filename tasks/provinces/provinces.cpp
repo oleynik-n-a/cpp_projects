@@ -1,5 +1,6 @@
 #include "provinces.h"
 
+#include <functional>
 #include <iostream>
 #include <queue>
 

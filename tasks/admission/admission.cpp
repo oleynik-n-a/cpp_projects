@@ -9,7 +9,11 @@ bool DateComparison(Student st1, Student st2);
 
 bool CompareApplicants(const Applicant* first, const Applicant* second);
 
+bool CompareStudents(const Student* first, const Student* second);
+
 std::vector<const Applicant*> SortApplicants(const std::vector<Applicant>& applicants);
+
+std::vector<const Student*> SortStudents(std::vector<const Student*> students);
 
 void Enroll(const Applicant* applicant, const std::vector<University>& universities, AdmissionTable& table);
 
@@ -18,6 +22,9 @@ AdmissionTable FillUniversities(const std::vector<University>& universities, con
     std::vector<const Applicant*> sorted_applicants = SortApplicants(applicants);
     for (const Applicant* applicant : sorted_applicants) {
         Enroll(applicant, universities, table);
+    }
+    for (const auto& pair : table) {
+        table[pair.first] = SortStudents(table[pair.first]);
     }
     return table;
 }
@@ -29,6 +36,11 @@ std::vector<const Applicant*> SortApplicants(const std::vector<Applicant>& appli
     }
     std::sort(applicants_pointers.begin(), applicants_pointers.end(), CompareApplicants);
     return applicants_pointers;
+}
+
+std::vector<const Student*> SortStudents(std::vector<const Student*> students) {
+    std::sort(students.begin(), students.end(), CompareStudents);
+    return students;
 }
 
 void Enroll(const Applicant* applicant, const std::vector<University>& universities, AdmissionTable& table) {
@@ -69,4 +81,11 @@ bool CompareApplicants(const Applicant* first, const Applicant* second) {
         return DateComparison(first->student, second->student);
     }
     return first->student.name < second->student.name;
+}
+
+bool CompareStudents(const Student* first, const Student* second) {
+    if (first->name == second->name) {
+        return DateComparison(*first, *second);
+    }
+    return first->name < second->name;
 }

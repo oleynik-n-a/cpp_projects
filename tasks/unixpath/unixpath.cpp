@@ -19,7 +19,7 @@ std::string NormalizePath(std::string_view current_working_dir, std::string_view
             }
             current_working_dir =
                 std::string_view(std::string(current_working_dir) + (current_working_dir.ends_with('/') ? "" : "/") +
-                std::string(path.substr(current, j)));
+                                 std::string(path.substr(current, j)));
             current += j - 1;
         }
     }

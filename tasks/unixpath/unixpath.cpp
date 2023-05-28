@@ -13,6 +13,9 @@ std::string NormalizePath(std::string_view current_working_dir, std::string_view
                 result.push_back(path[i]);
             }
         }
+        if (result.ends_with('/')) {
+            return result.substr(0, result.size() - 1);
+        }
         return result;
     }
     if (path.empty()) {

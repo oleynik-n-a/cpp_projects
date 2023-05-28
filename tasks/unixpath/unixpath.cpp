@@ -6,7 +6,7 @@ std::string NormalizePath(std::string_view current_working_dir, std::string_view
             continue;
         } else if (path[current] == '.') {
             if (path[current + 1] == '.') {
-                current_working_dir = current_working_dir.substr(0,current_working_dir.find_last_of('/'));
+                current_working_dir = current_working_dir.substr(0, current_working_dir.find_last_of('/'));
                 ++current;
             }
         } else {

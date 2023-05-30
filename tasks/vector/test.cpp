@@ -1,10 +1,10 @@
-#include "catch.hpp"
-
+#include <catch.hpp>
 #include <string>
 #include <vector>
 
 #include "vector.h"
 
+// NOLINTBEGIN
 template <class T>
 void Check(const Vector<T>& actual, const std::vector<int>& expected) {
     REQUIRE(actual.Size() == expected.size());
@@ -170,3 +170,4 @@ TEST_CASE("Copy correctness", "[vector]") {
     Check(d, std::vector<int>{1});
     Check(c, std::vector<int>{3, 4, 5});
 }
+// NOLINTEND

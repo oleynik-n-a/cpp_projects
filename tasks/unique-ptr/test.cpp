@@ -1,17 +1,17 @@
-#include "catch.hpp"
+#include <catch.hpp>
 
+// NOLINTBEGIN
 struct Counters {
     Counters() {
         Reset();
     }
 
     void Reset() {
-        ctor_ = intctor_ = dtor_ = copyctor_ = movector_ = copyoperator_ = moveoperator_ = method_ =
-            0;
+        ctor_ = intctor_ = dtor_ = copyctor_ = movector_ = copyoperator_ = moveoperator_ = method_ = 0;
     }
 
-    void Check(int ctor, int intctor, int dtor, int copyctor, int movector, int copyoperator,
-               int moveoperator, int method) {
+    void Check(int ctor, int intctor, int dtor, int copyctor, int movector, int copyoperator, int moveoperator,
+               int method) {
         REQUIRE(ctor == ctor_);
         REQUIRE(intctor == intctor_);
         REQUIRE(dtor == dtor_);
@@ -117,3 +117,4 @@ TEST_CASE("Move", "[UniquePtr]") {
     }
     counters.Check(1, 1, 2, 0, 0, 0, 0, 0);
 }
+// NOLINTEND

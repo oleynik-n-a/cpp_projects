@@ -1,7 +1,5 @@
-#include "catch.hpp"
-
-#include <iostream>
 #include <cassert>
+#include <catch.hpp>
 
 #include "reader.h"
 #include "readers_util.h"
@@ -14,7 +12,7 @@ TEST_CASE("Public StringReader") {
     REQUIRE(ReadAll(MakeStringReader("").get()).empty());
     REQUIRE("a" == ReadAll(MakeStringReader("a").get()));
 
-    std::string big_string(1 << 15, 'f');
+    std::string big_string(1 << 15, 'f');  // NOLINT
     REQUIRE(big_string == ReadAll(MakeStringReader(big_string).get()));
 }
 

@@ -1,9 +1,8 @@
-#include "dedup.h"
-
-#include "catch.hpp"
-
-#include <string>
+#include <catch.hpp>
 #include <memory>
+#include <string>
+
+#include "dedup.h"
 
 using std::string;
 

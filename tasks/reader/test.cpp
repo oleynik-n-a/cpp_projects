@@ -61,7 +61,7 @@ std::unique_ptr<Reader> MakeStringReader(const std::string& data) {
     return std::unique_ptr<StringReader>(new StringReader(data));
 }
 
-TEST_CASE("Public StringReader") {
+TEST_CASE("StringReader") {
     REQUIRE(ReadAll(MakeStringReader("").get()).empty());
     REQUIRE("a" == ReadAll(MakeStringReader("a").get()));
 
@@ -69,7 +69,7 @@ TEST_CASE("Public StringReader") {
     REQUIRE(big_string == ReadAll(MakeStringReader(big_string).get()));
 }
 
-TEST_CASE("Public LimitReader") {
+TEST_CASE("LimitReader") {
     LimitReader l1(MakeStringReader(""), 0);
     REQUIRE(ReadAll(&l1).empty());
 
@@ -88,7 +88,7 @@ TeeReader MakeTee(std::vector<std::string> chunks) {
     return TeeReader(std::move(readers));
 }
 
-TEST_CASE("Public TeeReader") {
+TEST_CASE("TeeReader") {
     TeeReader t1({});
     REQUIRE(ReadAll(&t1).empty());
 
@@ -108,7 +108,7 @@ TEST_CASE("Public TeeReader") {
     REQUIRE("abcdef" == ReadAll(&t6));
 }
 
-TEST_CASE("Public HexReader") {
+TEST_CASE("HexReader") {
     HexDecodingReader h1(MakeStringReader(""));
     REQUIRE(ReadAll(&h1).empty());
 

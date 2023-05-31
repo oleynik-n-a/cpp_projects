@@ -40,5 +40,3 @@ public:
 private:
     int fd_;
 };
-
-std::unique_ptr<Reader> MakeStringReader(const std::string& data);

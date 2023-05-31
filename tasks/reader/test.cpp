@@ -2,6 +2,7 @@
 
 #include "reader.h"
 #include "readers_util.h"
+#include "utils.h"
 
 
 TEST_CASE("StringReader") {

@@ -41,6 +41,4 @@ size_t FdReader::Read(char* buf, size_t len) {
     return res;
 }
 
-std::unique_ptr<Reader> MakeStringReader(const std::string& data) {
-    return std::unique_ptr<StringReader>(new StringReader(data));
-}
+

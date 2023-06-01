@@ -1,9 +1,9 @@
 #pragma once
 
 #include <memory>
-#include <vector>
 #include <set>
 #include <string>
+#include <vector>
 
 using std::string;
 

@@ -2,6 +2,7 @@
 
 #include <memory>
 #include <vector>
+#include <set>
 #include <string>
 
 using std::string;

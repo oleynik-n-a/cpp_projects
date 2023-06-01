@@ -9,8 +9,8 @@ using std::string;
 template <class T>
 std::vector<std::unique_ptr<T>> Duplicate(const std::vector<std::shared_ptr<T>>& items) {
     std::vector<std::unique_ptr<T>> result;
-    for (size_t i = 0; i < items.size(); ++i) {
-        result.emplace_back(std::make_unique<T>(*items[i]));
+    for (const auto& item : items) {
+        result.emplace_back(std::make_unique<T>(*item));
     }
     return result;
 }
@@ -25,8 +25,8 @@ std::vector<std::shared_ptr<T>> DeDuplicate(const std::vector<std::unique_ptr<T>
 
     std::set<std::shared_ptr<T>, Comrapison> pool;
     std::vector<std::shared_ptr<T>> result;
-    for (size_t i = 0; i < items.size(); ++i) {
-        auto copy = std::make_shared<T>(*items[i]);
+    for (const auto& el : items) {
+        auto copy = std::make_shared<T>(*el);
         auto item = *pool.insert(copy).first;
         result.push_back(item);
     }

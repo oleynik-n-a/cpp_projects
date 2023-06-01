@@ -19,7 +19,7 @@ std::vector<std::unique_ptr<T>> Duplicate(const std::vector<std::shared_ptr<T>>&
 template <class T>
 std::vector<std::shared_ptr<T>> DeDuplicate(const std::vector<std::unique_ptr<T>>& items) {
     struct Comrapison {
-        bool operator() (const std::shared_ptr<T>& l_ptr, const std::shared_ptr<T>& r_ptr) const{
+        bool operator()(const std::shared_ptr<T>& l_ptr, const std::shared_ptr<T>& r_ptr) const {
             return *l_ptr < *r_ptr;
         }
     };

@@ -78,4 +78,4 @@ int64_t VectorMult(const Vector& first, const Vector& second) {
 double Length(Vector vector) {
     return sqrt(static_cast<double>(vector.x_coord_ * vector.x_coord_ + vector.y_coord_ * vector.y_coord_));
 }
-} // namespace geometry
+}  // namespace geometry

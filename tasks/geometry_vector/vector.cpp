@@ -72,7 +72,7 @@ int64_t ScalarMult(const Vector& first, const Vector& second) {
 }
 
 int64_t VectorMult(const Vector& first, const Vector& second) {
-    return first.x_coord_ * second.x_coord_ - first.y_coord_ * second.y_coord_;
+    return first.x_coord_ * second.y_coord_ - first.y_coord_ * second.x_coord_;
 }
 
 double Length(Vector vector) {

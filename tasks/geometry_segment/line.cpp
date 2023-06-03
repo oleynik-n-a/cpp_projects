@@ -1,6 +1,7 @@
 #include "line.h"
 
 #include <cmath>
+
 #include "segment.h"
 
 namespace geometry {

@@ -3,7 +3,6 @@
 #include <cmath>
 #include <cstdint>
 
-
 namespace geometry {
 class Vector {
 private:

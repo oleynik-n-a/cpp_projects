@@ -1,5 +1,7 @@
 #include "segment.h"
 
+#include "line.h"
+#include "point.h"
 #include "vector.h"
 
 namespace geometry {
@@ -44,5 +46,33 @@ bool Segment::Degenerate() const {
         return true;
     }
     return false;
+}
+
+Segment& Segment::Move(const Vector& vector) {
+    start_.SetX(GetStart().GetX() + vector.GetX());
+    start_.SetY(GetStart().GetY() + vector.GetY());
+    end_.SetX(GetEnd().GetX() + vector.GetX());
+    end_.SetY(GetEnd().GetY() + vector.GetY());
+    return *this;
+}
+
+bool Segment::ContainsPoint(const Point& point) const {
+    return Line(Point(GetStart().GetX(), GetStart().GetY()),
+                Point(GetEnd().GetX(), GetEnd().GetY())).ContainsPoint(point) &&
+                ((GetStart().GetX() >= point.GetX() && GetEnd().GetX() <= point.GetX()) ||
+                 (GetStart().GetX() <= point.GetX() && GetEnd().GetX() >= point.GetX())) &&
+                ((GetStart().GetY() >= point.GetY() && GetEnd().GetY() <= point.GetY()) ||
+                 (GetStart().GetY() <= point.GetY() && GetEnd().GetY() >= point.GetY()));
+}
+
+bool Segment::CrossesSegment(const Segment& segment) const {
+    return (Line(Point(GetStart().GetX(), GetStart().GetY()),
+                 Point(GetEnd().GetX(), GetEnd().GetY())).CrossesSegment(segment)) &&
+           (Line(Point(segment.GetStart().GetX(), segment.GetStart().GetY()),
+                 Point(segment.GetEnd().GetX(), segment.GetEnd().GetY())).CrossesSegment(*this));
+}
+
+Segment* Segment::Clone() const {
+    return new Segment(GetStart(), GetEnd());
 }
 }  // namespace geometry

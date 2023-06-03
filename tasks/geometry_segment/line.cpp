@@ -39,13 +39,9 @@ bool Line::ContainsPoint(const Point& point) const {
 }
 
 bool Line::CrossesSegment(const Segment& segment) const {
-    if (ContainsPoint(segment.GetStart()) || ContainsPoint(segment.GetEnd())) {
-        return true;
-    }
-    return ((-GetA() * segment.GetStart().GetX() - GetC()) / GetC() < segment.GetStart().GetY() &&
-            (-GetA() * segment.GetEnd().GetX() - GetC()) / GetC() > segment.GetEnd().GetY()) ||
-           ((-GetA() * segment.GetStart().GetX() - GetC()) / GetC() > segment.GetStart().GetY() &&
-            (-GetA() * segment.GetEnd().GetX() - GetC()) / GetC() < segment.GetEnd().GetY());
+    int64_t point_1 = GetA() * segment.GetStart().GetX() + GetB() * segment.GetStart().GetY() + GetC();
+    int64_t point_2 = GetA() * segment.GetEnd().GetX() + GetB() * segment.GetEnd().GetY() + GetC();
+    return point_1 * point_2 <= 0;
 }
 
 Line* Line::Clone() const {

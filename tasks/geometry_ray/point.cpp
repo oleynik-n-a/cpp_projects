@@ -36,10 +36,9 @@ bool Point::ContainsPoint(const Point& point) const {
 }
 
 bool Point::CrossesSegment(const Segment& segment) const {
-    Vector start = Vector(GetX() - segment.GetStart().GetX(), GetY() - segment.GetStart().GetY());
-    Vector end = Vector(GetX() - segment.GetEnd().GetX(), GetY() - segment.GetEnd().GetY());
-    Vector segment_v = Vector(segment.GetEnd().GetX() - segment.GetStart().GetX(),
-            segment.GetEnd().GetY() - segment.GetStart().GetY());
+    Vector start = segment.GetStart() - *this;
+    Vector end = segment.GetEnd() - *this;
+    Vector segment_v = segment.GetEnd() - segment.GetStart();
     return ScalarMult(start, segment_v) >= 0 && ScalarMult(end, segment_v) <= 0 && VectorMult(start, segment_v) == 0;
 }
 

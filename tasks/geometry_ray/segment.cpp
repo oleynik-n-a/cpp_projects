@@ -21,9 +21,9 @@ Point Segment::GetEnd() const {
 }
 
 double Segment::Distance(Point point) const {
-    Vector v_start = Vector(point.GetX() - GetStart().GetX(), point.GetY() - GetStart().GetY());
-    Vector v_end = Vector(point.GetX() - GetEnd().GetX(), point.GetY() - GetEnd().GetY());
-    Vector v_segm = Vector(GetEnd().GetX() - GetStart().GetX(), GetEnd().GetY() - GetStart().GetY());
+    Vector v_start = point - GetStart();
+    Vector v_end = point - GetEnd();
+    Vector v_segm = GetEnd() - GetStart();
 
     if ((GetStart().GetX() == point.GetX() && GetStart().GetY() == point.GetY()) ||
         (GetEnd().GetX() == point.GetX() && GetEnd().GetY() == point.GetY())) {
@@ -58,7 +58,7 @@ Segment& Segment::Move(const Vector& vector) {
 
 bool Segment::ContainsPoint(const Point& point) const {
     return Line(Point(GetStart().GetX(), GetStart().GetY()), Point(GetEnd().GetX(), GetEnd().GetY()))
-                   .ContainsPoint(point) &&
+               .ContainsPoint(point) &&
            ((GetStart().GetX() >= point.GetX() && GetEnd().GetX() <= point.GetX()) ||
             (GetStart().GetX() <= point.GetX() && GetEnd().GetX() >= point.GetX())) &&
            ((GetStart().GetY() >= point.GetY() && GetEnd().GetY() <= point.GetY()) ||
@@ -67,18 +67,18 @@ bool Segment::ContainsPoint(const Point& point) const {
 
 bool Segment::CrossesSegment(const Segment& segment) const {
     if (Line(Point(GetStart().GetX(), GetStart().GetY()), Point(GetEnd().GetX(), GetEnd().GetY()))
-                .ContainsPoint(segment.GetStart()) &&
+            .ContainsPoint(segment.GetStart()) &&
         Line(Point(GetStart().GetX(), GetStart().GetY()), Point(GetEnd().GetX(), GetEnd().GetY()))
-                .ContainsPoint(segment.GetEnd()) &&
+            .ContainsPoint(segment.GetEnd()) &&
         !segment.ContainsPoint(GetStart()) && !segment.ContainsPoint(GetEnd()) && !ContainsPoint(segment.GetStart()) &&
         !ContainsPoint(segment.GetEnd())) {
         return false;
     }
     return (Line(Point(GetStart().GetX(), GetStart().GetY()), Point(GetEnd().GetX(), GetEnd().GetY()))
-            .CrossesSegment(segment)) &&
+                .CrossesSegment(segment)) &&
            (Line(Point(segment.GetStart().GetX(), segment.GetStart().GetY()),
-                   Point(segment.GetEnd().GetX(), segment.GetEnd().GetY()))
-                   .CrossesSegment(*this));
+                 Point(segment.GetEnd().GetX(), segment.GetEnd().GetY()))
+                .CrossesSegment(*this));
 }
 
 Segment* Segment::Clone() const {

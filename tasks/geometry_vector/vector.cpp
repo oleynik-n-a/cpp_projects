@@ -1,5 +1,7 @@
 #include "vector.h"
 
+#include <cmath>
+
 namespace geometry {
 Vector::Vector() = default;
 

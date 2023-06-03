@@ -70,7 +70,7 @@ bool Segment::CrossesSegment(const Segment& segment) const {
                 .CrossesSegment(segment)) &&
            (Line(Point(segment.GetStart().GetX(), segment.GetStart().GetY()),
                  Point(segment.GetEnd().GetX(), segment.GetEnd().GetY()))
-                 .CrossesSegment(*this));
+                .CrossesSegment(*this));
 }
 
 Segment* Segment::Clone() const {

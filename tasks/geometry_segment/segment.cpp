@@ -66,7 +66,7 @@ bool Segment::ContainsPoint(const Point& point) const {
 }
 
 bool Segment::CrossesSegment(const Segment& segment) const {
-    if (ScalarMult(Vector(GetEnd().GetX() - GetStart().GetX(), GetEnd().GetY() - GetStart().GetY()),
+    if (VectorMult(Vector(GetEnd().GetX() - GetStart().GetX(), GetEnd().GetY() - GetStart().GetY()),
                    Vector(segment.GetEnd().GetX() - segment.GetStart().GetX(),
                           segment.GetEnd().GetY() - segment.GetStart().GetY())) == 0 &&
         !segment.ContainsPoint(GetStart()) && !segment.ContainsPoint(GetEnd())) {

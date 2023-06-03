@@ -39,7 +39,7 @@ bool Point::CrossesSegment(const Segment& segment) const {
     Vector start = Vector(GetX() - segment.GetStart().GetX(), GetY() - segment.GetStart().GetY());
     Vector end = Vector(GetX() - segment.GetEnd().GetX(), GetY() - segment.GetEnd().GetY());
     Vector segment_v = Vector(segment.GetEnd().GetX() - segment.GetStart().GetX(),
-            segment.GetEnd().GetY() - segment.GetStart().GetY());
+                              segment.GetEnd().GetY() - segment.GetStart().GetY());
     return ScalarMult(start, segment_v) >= 0 && ScalarMult(end, segment_v) <= 0 && VectorMult(start, segment_v) == 0;
 }
 

@@ -30,7 +30,7 @@ bool Polygon::ContainsPoint(const Point& point) const {
         }
     }
     double angles_sum = 0;
-    const double eps = 0.00000001;
+    const double eps = 10e-11;
     for (size_t i = 0; i < num_points_; ++i) {
         if (!Line(point, points_[i]).ContainsPoint(points_[(i + 1) % num_points_])) {
             Vector v1 = points_[i] - point;

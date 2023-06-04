@@ -17,8 +17,7 @@ Polygon::Polygon(std::vector<Point> points) {
 
 Polygon& Polygon::Move(const Vector& vector) {
     for (size_t i = 0; i < num_points_; ++i) {
-        points_[i].SetX(points_[i].GetX() + vector.GetX());
-        points_[i].SetY(points_[i].GetY() + vector.GetY());
+        points_[i].Move(vector);
     }
     return *this;
 }

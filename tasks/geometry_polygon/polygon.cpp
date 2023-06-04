@@ -38,7 +38,7 @@ bool Polygon::ContainsPoint(const Point& point) const {
         double sin = static_cast<double>(VectorMult(v1, v2)) / (Length(v1) * Length(v2));
         angles_sum += atan2(sin, cos);
     }
-    return angles_sum >= 2 * std::numbers::pi - eps && angles_sum <= 2 * std::numbers::pi + eps;
+    return !(angles_sum < eps && angles_sum > -eps);
 }
 
 bool Polygon::CrossesSegment(const Segment& segment) const {

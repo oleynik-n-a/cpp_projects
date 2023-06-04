@@ -13,8 +13,7 @@ Circle::Circle(Point centre, int64_t radius) {
 }
 
 Circle& Circle::Move(const Vector& vector) {
-    centre_.SetX(GetCenter().GetX() + vector.GetX());
-    centre_.SetY(GetCenter().GetY() + vector.GetY());
+    centre_.Move(vector);
     return *this;
 }
 

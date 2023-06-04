@@ -37,11 +37,7 @@ bool Polygon::ContainsPoint(const Point& point) const {
             Vector v2 = points_[(i + 1) % num_points_] - point;
             double cos = static_cast<double>(ScalarMult(v1, v2)) / (Length(v1) * Length(v2));
             double sin = static_cast<double>(VectorMult(v1, v2)) / (Length(v1) * Length(v2));
-            if (cos >= 0) {
-                angles_sum += asin(sin);
-            } else {
-                angles_sum += acos(cos);
-            }
+            angles_sum += atan2(sin, cos);
         }
     }
     return angles_sum >= 2 * std::numbers::pi - eps && angles_sum <= 2 * std::numbers::pi + eps;

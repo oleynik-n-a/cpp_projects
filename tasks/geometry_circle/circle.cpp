@@ -23,10 +23,14 @@ bool Circle::ContainsPoint(const Point& point) const {
 }
 
 bool Circle::CrossesSegment(const Segment& segment) const {
-    if (ContainsPoint(segment.GetStart()) || ContainsPoint(segment.GetEnd())) {
+    if ((ContainsPoint(segment.GetStart()) && !ContainsPoint(segment.GetEnd())) ||
+        (!ContainsPoint(segment.GetStart()) && ContainsPoint(segment.GetEnd())) ||
+        Length((segment.GetStart() - GetCenter())) == static_cast<double>(GetRadius()) ||
+        Length((segment.GetEnd() - GetCenter())) == static_cast<double>(GetRadius())) {
         return true;
     }
-    return segment.Distance(GetCenter()) <= static_cast<double>(GetRadius());
+    return segment.Distance(GetCenter()) <= static_cast<double>(GetRadius()) &&
+           !ContainsPoint(segment.GetStart()) && !ContainsPoint(segment.GetEnd());
 }
 
 Circle* Circle::Clone() const {

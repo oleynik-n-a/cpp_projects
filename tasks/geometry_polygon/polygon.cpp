@@ -30,14 +30,18 @@ bool Polygon::ContainsPoint(const Point& point) const {
         }
     }
     double angles_sum = 0;
-    const double eps = 10e-11;
+    const double eps = 10e-9;
     for (size_t i = 0; i < num_points_; ++i) {
         if (!Line(point, points_[i]).ContainsPoint(points_[(i + 1) % num_points_])) {
             Vector v1 = points_[i] - point;
             Vector v2 = points_[(i + 1) % num_points_] - point;
-            Vector v3 = points_[i] - points_[(i + 1) % num_points_];
-            angles_sum +=
-                acos((pow(Length(v1), 2) + pow(Length(v2), 2) - pow(Length(v3), 2)) / (2 * Length(v1) * Length(v2)));
+            double cos = static_cast<double>(ScalarMult(v1, v2)) / (Length(v1) * Length(v2));
+            double sin = static_cast<double>(VectorMult(v1, v2)) / (Length(v1) * Length(v2));
+            if (cos >= 0) {
+                angles_sum += asin(sin);
+            } else {
+                angles_sum += acos(cos);
+            }
         }
     }
     return angles_sum >= 2 * std::numbers::pi - eps && angles_sum <= 2 * std::numbers::pi + eps;

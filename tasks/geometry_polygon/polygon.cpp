@@ -32,13 +32,11 @@ bool Polygon::ContainsPoint(const Point& point) const {
     double angles_sum = 0;
     const double eps = 10e-3;
     for (size_t i = 0; i < num_points_; ++i) {
-        if (!Line(point, points_[i]).ContainsPoint(points_[(i + 1) % num_points_])) {
-            Vector v1 = points_[i] - point;
-            Vector v2 = points_[(i + 1) % num_points_] - point;
-            double cos = static_cast<double>(ScalarMult(v1, v2)) / (Length(v1) * Length(v2));
-            double sin = static_cast<double>(VectorMult(v1, v2)) / (Length(v1) * Length(v2));
-            angles_sum += atan2(sin, cos);
-        }
+        Vector v1 = points_[i] - point;
+        Vector v2 = points_[(i + 1) % num_points_] - point;
+        double cos = static_cast<double>(ScalarMult(v1, v2)) / (Length(v1) * Length(v2));
+        double sin = static_cast<double>(VectorMult(v1, v2)) / (Length(v1) * Length(v2));
+        angles_sum += atan2(sin, cos);
     }
     return angles_sum >= 2 * std::numbers::pi - eps && angles_sum <= 2 * std::numbers::pi + eps;
 }

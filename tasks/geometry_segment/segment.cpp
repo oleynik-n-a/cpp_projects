@@ -42,10 +42,7 @@ double Segment::Distance(Point point) const {
 }
 
 bool Segment::Degenerate() const {
-    if (GetStart().GetX() == GetEnd().GetX() && GetStart().GetY() == GetEnd().GetY()) {
-        return true;
-    }
-    return false;
+    return GetStart().GetX() == GetEnd().GetX() && GetStart().GetY() == GetEnd().GetY();
 }
 
 Segment& Segment::Move(const Vector& vector) {

@@ -1,8 +1,9 @@
-#include "segment.h"
+#include "polygon.h"
 
 #include <cmath>
+
 #include "point.h"
-#include "polygon.h"
+#include "segment.h"
 #include "vector.h"
 
 namespace geometry {
@@ -33,7 +34,8 @@ bool Polygon::ContainsPoint(const geometry::Point& point) const {
         Vector v1 = points_[i] - point;
         Vector v2 = points_[(i + 1) % num_points_] - point;
         Vector v3 = points_[i] - points_[(i + 1) % num_points_];
-        angles_sum += acos((pow(Length(v1), 2) + pow(Length(v2), 2) - pow(Length(v3), 2)) / (2 * Length(v1) * Length(v2)));
+        angles_sum +=
+            acos((pow(Length(v1), 2) + pow(Length(v2), 2) - pow(Length(v3), 2)) / (2 * Length(v1) * Length(v2)));
     }
     return angles_sum >= 2 * std::numbers::pi - eps && angles_sum <= 2 * std::numbers::pi + eps;
 }

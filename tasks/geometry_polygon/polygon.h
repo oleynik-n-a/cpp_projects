@@ -1,8 +1,9 @@
 #pragma once
 
 #include <iostream>
-#include "point.h"
 #include <vector>
+
+#include "point.h"
 #include "vector.h"
 
 namespace geometry {

@@ -29,7 +29,7 @@ bool Polygon::ContainsPoint(const geometry::Point& point) const {
         }
     }
     double angles_sum = 0;
-    const double eps = 0.0000000001;
+    const double eps = 0.00000001;
     for (size_t i = 0; i < num_points_; ++i) {
         Vector v1 = points_[i] - point;
         Vector v2 = points_[(i + 1) % num_points_] - point;

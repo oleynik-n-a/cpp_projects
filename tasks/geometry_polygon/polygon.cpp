@@ -2,6 +2,7 @@
 
 #include <cmath>
 
+#include "line.h"
 #include "point.h"
 #include "segment.h"
 #include "vector.h"
@@ -31,8 +32,7 @@ bool Polygon::ContainsPoint(const Point& point) const {
     double angles_sum = 0;
     const double eps = 0.00000001;
     for (size_t i = 0; i < num_points_; ++i) {
-        if (!(points_[i].GetX() == points_[(i + 1) % num_points_].GetX() &&
-              points_[i].GetY() == points_[(i + 1) % num_points_].GetY())) {
+        if (!Line(point, points_[i]).ContainsPoint(points_[(i + 1) % num_points_])) {
             Vector v1 = points_[i] - point;
             Vector v2 = points_[(i + 1) % num_points_] - point;
             Vector v3 = points_[i] - points_[(i + 1) % num_points_];

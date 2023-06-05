@@ -5,7 +5,7 @@
 
 template <class T>
 void Equal(const std::vector<T>& actual, const std::vector<T>& expected) {
-    for (int i = 0; i < actual.size(); ++i) {
+    for (size_t i = 0; i < actual.size(); ++i) {
         REQUIRE(actual[i] == expected[i]);
     }
 }

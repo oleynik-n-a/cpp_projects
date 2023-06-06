@@ -34,7 +34,7 @@ String::String(const char* src) {
 
 String::String(const char* src, size_t size) {
     size_ = size;
-    capacity_ = 2* size_;
+    capacity_ = 2 * size_;
     data_ = new char[capacity_];
     for (size_t i = 0; i < size_ && i < strlen(src); ++i) {
         data_[i] = src[i];
@@ -184,6 +184,7 @@ void String::PushBack(char c) {
 void String::Resize(size_t new_size, char symbol) {
     if (new_size == 0) {
         size_ = 0;
+        delete[] data_;
         data_ = nullptr;
     } else {
         auto tmp = data_;
@@ -193,6 +194,7 @@ void String::Resize(size_t new_size, char symbol) {
             data_[i] = i < size_ ? tmp[i] : symbol;
         }
         size_ = capacity_;
+        delete[] tmp;
     }
 }
 

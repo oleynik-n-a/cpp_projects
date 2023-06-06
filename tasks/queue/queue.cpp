@@ -8,7 +8,7 @@ Node::Node(int32_t value, Node* next) {
 Queue::Queue() {
     size_ = 0;
     tail_ = new Node(0, 0);
-    front_ = new Node(0, tail_);
+    front_ = new Node(0, 0);
 }
 
 Queue::~Queue() {
@@ -22,6 +22,7 @@ void Queue::Push(int32_t value) {
         tail_->value = value;
     } else if (size_ == 1) {
         tail_->value = value;
+        front_->next = tail_;
     } else {
         tail_->next = new Node(value, 0);
         tail_ = tail_->next;
@@ -30,10 +31,13 @@ void Queue::Push(int32_t value) {
 }
 
 void Queue::Pop() {
-    if (size_ > 1) {
+    if (size_ > 2) {
         auto tmp = front_->next;
         delete front_;
         front_ = tmp;
+    } else if (size_ == 2) {
+        front_->value = tail_->value;
+        front_->next = 0;
     } else {
         front_->value = 0;
         tail_->value = 0;

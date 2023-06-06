@@ -23,7 +23,7 @@ char StringView::operator[](size_t idx) const {
 
 char StringView::At(size_t idx) const {
     if (idx >= size_) {
-        throw StringViewOutOfRange {};
+        throw StringViewOutOfRange{};
     }
     return *(string_ + idx);
 }
@@ -52,7 +52,7 @@ bool StringView::Empty() const {
     return size_ == 0;
 }
 
-void StringView::Swap(StringView &other) {
+void StringView::Swap(StringView& other) {
     auto tmp_data = other.Data();
     auto tmp_length = other.Length();
     other = StringView(string_, size_);

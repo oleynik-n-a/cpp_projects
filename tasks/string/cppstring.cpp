@@ -154,11 +154,15 @@ void String::Clear() {
 }
 
 void String::Swap(String& other) {
-    auto tmp = other;
-    other = *this;
-    size_ = tmp.size_;
-    capacity_ = tmp.capacity_;
-    data_ = tmp.data_;
+    auto tmp_size = other.size_;
+    auto tmp_capacity = other.capacity_;
+    auto tmp_data = other.data_;
+    other.size_ = size_;
+    other.capacity_ = capacity_;
+    other.data_ = data_;
+    size_ = tmp_size;
+    capacity_ = tmp_capacity;
+    data_ = tmp_data;
 }
 
 void String::PopBack() {
@@ -217,7 +221,6 @@ void String::ShrinkToFit() {
     for (size_t i = 0; i < size_; ++i) {
         data_[i] = tmp[i];
     }
-    capacity_ = size_;
     delete[] tmp;
 }
 

@@ -171,17 +171,12 @@ void String::PopBack() {
 void String::PushBack(char c) {
     if (Empty()) {
         ++size_;
-        ++capacity_;
+        capacity_ += 2;
         data_ = new char[capacity_]{c};
     } else if (capacity_ > size_) {
         data_[size_++] = c;
     } else {
-        auto tmp = data_;
-        capacity_ *= 2;
-        data_ = new char[capacity_];
-        for (size_t i = 0; i < size_; ++i) {
-            data_[i] = tmp[i];
-        }
+        Reserve(2 * capacity_);
         data_[size_++] = c;
     }
 }
@@ -202,19 +197,27 @@ void String::Resize(size_t new_size, char symbol) {
 }
 
 void String::Reserve(size_t new_capacity) {
-    capacity_ = new_capacity;
-    auto tmp = data_;
-    for (size_t i = 0; i < size_ && i < capacity_; ++i) {
-        data_[i] = tmp[i];
+    if (new_capacity > capacity_) {
+        auto tmp = data_;
+        data_ = new char[new_capacity];
+        for (size_t i = 0; i < size_; ++i) {
+            data_[i] = tmp[i];
+        }
+        capacity_ = new_capacity;
+        delete[] tmp;
     }
 }
 
 void String::ShrinkToFit() {
     capacity_ = size_;
     auto tmp = data_;
-    for (size_t i = 0; i < size_; ++i) {
+    data_ = new char[size_];
+    for (size_t i = 0; i < size_; ++i)
+    {
         data_[i] = tmp[i];
     }
+    capacity_ = size_;
+    delete[] tmp;
 }
 
 int String::Compare(const String& other) const {
@@ -239,39 +242,24 @@ String& String::operator+=(const String& other) {
     if (capacity_ == 0) {
         size_ = other.size_;
         capacity_ = other.capacity_;
-        data_ = other.data_;
+        data_ = new char[capacity_];
+        for (size_t i = 0; i < capacity_; ++i) {
+            data_[i] = other[i];
+        }
         return *this;
     }
-    while (other.size_ + size_ > capacity_) {
-        capacity_ *= 2;
+    if (capacity_ < size_ + other.size_) {
+        Reserve(2 * (size_ + other.size_));
     }
-    auto tmp_data = data_;
-    auto tmp_size = size_;
-    size_ += other.size_;
-    data_ = new char[capacity_];
-    for (size_t i = 0; i < size_; ++i) {
-        if (i < tmp_size) {
-            data_[i] = tmp_data[i];
-        } else {
-            data_[i] = other.data_[i - tmp_size];
-        }
+    for (size_t i = 0; i < other.size_; ++i) {
+        PushBack(other[i]);
     }
     return *this;
 }
 
 String operator+(const String& first, const String& second) {
-    String result;
-    result.size_ = first.size_ + second.size_;
-    result.capacity_ = result.size_;
-    result = new char[result.capacity_];
-    for (size_t i = 0; i < result.size_; ++i) {
-        if (i < first.size_) {
-            result[i] = first[i];
-        } else {
-            result[i] = second[i - first.size_];
-        }
-    }
-    return result;
+    String result = first;
+    return result += second;
 }
 
 std::ostream& operator<<(std::ostream& stream, const String& string) {
@@ -318,8 +306,7 @@ bool operator<=(const String& first, const String& second) {
 }
 
 void SafeCpy(char* dest, const char* src, size_t len) {
-    dest = new char[len > strlen(src) ? len : strlen(src)];
-    for (size_t i = 0; i < len && i < strlen(src); ++i) {
+    for (size_t i = 0; i < len; ++i) {
         dest[i] = src[i];
     }
 }

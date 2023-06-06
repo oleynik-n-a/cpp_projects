@@ -212,8 +212,7 @@ void String::ShrinkToFit() {
     capacity_ = size_;
     auto tmp = data_;
     data_ = new char[size_];
-    for (size_t i = 0; i < size_; ++i)
-    {
+    for (size_t i = 0; i < size_; ++i) {
         data_[i] = tmp[i];
     }
     capacity_ = size_;

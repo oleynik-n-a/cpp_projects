@@ -48,7 +48,7 @@ String::~String() {
 }
 
 String::String(const String& other) {
-    if (other.data_ != nullptr) {
+    if (other.capacity_ != 0 && other.data_ != nullptr) {
         size_ = other.size_;
         capacity_ = other.capacity_;
         data_ = new char[capacity_];

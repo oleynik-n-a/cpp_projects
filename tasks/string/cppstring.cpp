@@ -66,6 +66,7 @@ String& String::operator=(const String& other) {
     if (other.data_ != nullptr) {
         size_ = other.size_;
         capacity_ = size_;
+        delete[] data_;
         data_ = new char[capacity_];
         for (size_t i = 0; i < size_; ++i) {
             data_[i] = other[i];

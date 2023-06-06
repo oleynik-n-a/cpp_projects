@@ -172,7 +172,7 @@ void String::PushBack(char c) {
     if (Empty()) {
         ++size_;
         ++capacity_;
-        data_ = new char[capacity_] { c };
+        data_ = new char[capacity_]{c};
     } else if (capacity_ > size_) {
         data_[size_++] = c;
     } else {
@@ -245,7 +245,7 @@ String& String::operator+=(const String& other) {
     while (other.size_ + size_ > capacity_) {
         capacity_ *= 2;
     }
-    auto tmp_data= data_;
+    auto tmp_data = data_;
     auto tmp_size = size_;
     size_ += other.size_;
     data_ = new char[capacity_];
@@ -274,7 +274,7 @@ String operator+(const String& first, const String& second) {
     return result;
 }
 
-std::ostream &operator<<(std::ostream& stream, const String& string) {
+std::ostream& operator<<(std::ostream& stream, const String& string) {
     for (size_t i = 0; i < string.Length(); ++i) {
         stream << string[i];
     }

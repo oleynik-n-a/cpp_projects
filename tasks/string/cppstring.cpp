@@ -11,7 +11,7 @@ String::String() {
 String::String(size_t size, char symbol) {
     if (size != 0) {
         size_ = size;
-        capacity_ = size_;
+        capacity_ = 2 * size_;
         data_ = new char[capacity_];
         for (size_t i = 0; i < size_; ++i) {
             data_[i] = symbol;
@@ -25,7 +25,7 @@ String::String(size_t size, char symbol) {
 
 String::String(const char* src) {
     size_ = strlen(src);
-    capacity_ = size_;
+    capacity_ = 2 * size_;
     data_ = new char[capacity_];
     for (size_t i = 0; i < size_; ++i) {
         data_[i] = src[i];
@@ -34,7 +34,7 @@ String::String(const char* src) {
 
 String::String(const char* src, size_t size) {
     size_ = size;
-    capacity_ = size_;
+    capacity_ = 2* size_;
     data_ = new char[capacity_];
     for (size_t i = 0; i < size_ && i < strlen(src); ++i) {
         data_[i] = src[i];
@@ -50,7 +50,7 @@ String::~String() {
 String::String(const String& other) {
     if (other.data_ != nullptr) {
         size_ = other.size_;
-        capacity_ = size_;
+        capacity_ = other.capacity_;
         data_ = new char[capacity_];
         for (size_t i = 0; i < size_; ++i) {
             data_[i] = other[i];
@@ -63,10 +63,10 @@ String::String(const String& other) {
 }
 
 String& String::operator=(const String& other) {
+    delete[] data_;
     if (other.data_ != nullptr) {
         size_ = other.size_;
-        capacity_ = size_;
-        delete[] data_;
+        capacity_ = 2 * size_;
         data_ = new char[capacity_];
         for (size_t i = 0; i < size_; ++i) {
             data_[i] = other[i];
@@ -151,8 +151,6 @@ size_t String::Capacity() const {
 
 void String::Clear() {
     size_ = 0;
-    capacity_ = 0;
-    data_ = nullptr;
 }
 
 void String::Swap(String& other) {
@@ -170,9 +168,10 @@ void String::PopBack() {
 }
 
 void String::PushBack(char c) {
-    if (Empty()) {
+    if (capacity_ == 0) {
         ++size_;
         capacity_ += 2;
+        delete[] data_;
         data_ = new char[capacity_]{c};
     } else if (capacity_ > size_) {
         data_[size_++] = c;

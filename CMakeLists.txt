@@ -84,3 +84,13 @@ add_subdirectory(tasks/dedup)
 add_subdirectory(tasks/unique-ptr)
 add_subdirectory(tasks/vector)
 add_subdirectory(tasks/reader)
+
+
+#8
+add_subdirectory(tasks/itertools)
+add_subdirectory(tasks/any)
+
+
+#homework 2
+#add_subdirectory(tasks/list)
+#add_subdirectory(tasks/smart-ptr)

@@ -1,5 +1,7 @@
 #pragma once
 
+#include <algorithm>
+
 template <typename Iterator>
 void Reverse(Iterator begin, Iterator end) {
     for (Iterator iterator = begin; iterator < begin + (end - begin) / 2; ++iterator) {

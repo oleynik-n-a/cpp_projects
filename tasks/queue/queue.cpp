@@ -13,6 +13,7 @@ Queue::Queue() {
 
 Queue::~Queue() {
     Clear();
+    delete front_;
     delete tail_;
 }
 
@@ -31,18 +32,20 @@ void Queue::Push(int32_t value) {
 }
 
 void Queue::Pop() {
-    if (size_ > 2) {
-        auto tmp = front_->next;
-        delete front_;
-        front_ = tmp;
-    } else if (size_ == 2) {
-        front_->value = tail_->value;
-        front_->next = 0;
-    } else {
-        front_->value = 0;
-        tail_->value = 0;
+    if (!Empty()) {
+        if (size_ > 2) {
+            auto tmp = front_->next;
+            delete front_;
+            front_ = tmp;
+        } else if (size_ == 2) {
+            front_->value = tail_->value;
+            front_->next = 0;
+        } else {
+            front_->value = 0;
+            tail_->value = 0;
+        }
+        --size_;
     }
-    --size_;
 }
 
 int32_t Queue::Front() const {

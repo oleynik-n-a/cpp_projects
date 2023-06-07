@@ -55,7 +55,8 @@ bool StringView::Empty() const {
 void StringView::Swap(StringView& other) {
     auto tmp_data = other.Data();
     auto tmp_length = other.Length();
-    other = StringView(string_, size_);
+    other.string_ = string_;
+    other.size_ = size_;
     string_ = tmp_data;
     size_ = tmp_length;
 }
@@ -70,5 +71,11 @@ void StringView::RemoveSuffix(size_t suffix_size) {
 }
 
 StringView StringView::Substr(size_t pos, size_t count) {
+    if (pos >= size_) {
+        throw StringViewOutOfRange{};
+    }
+    if (pos + count > size_) {
+        return StringView(string_ + pos, size_ - pos);
+    }
     return StringView(string_ + pos, count);
 }

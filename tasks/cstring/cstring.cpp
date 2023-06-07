@@ -27,6 +27,9 @@ int Strcmp(const char* first, const char* second) {
 }
 
 int Strncmp(const char* first, const char* second, size_t count) {
+    if (count == 0) {
+        return 0;
+    }
     for (size_t i = 0; i < Strlen(first) && i < Strlen(second) && i < count; ++i) {
         if (first[i] > second[i]) {
             return 1;
@@ -144,13 +147,13 @@ const char* Strstr(const char* str, const char* pattern) {
         return str + Strlen(str);
     }
     for (size_t i = 0, j = 0; i <= Strlen(str); ++i) {
-        if (str[i] == str[j]) {
+        if (str[i] == pattern[j]) {
             ++j;
         } else {
-            i -= (j - 1);
+            i -= j;
             j = 0;
         }
-        if (j == Strlen(str) + 1) {
+        if (j == Strlen(pattern)) {
             return str + i - j + 1;
         }
     }

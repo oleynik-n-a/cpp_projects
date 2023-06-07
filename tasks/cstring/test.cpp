@@ -84,8 +84,10 @@ TEST_CASE("Strpbrk") {
 TEST_CASE("Strstr") {
     const char* a = "";
     const char* b = "aabc";
+    const char* c = "anucwabncunaabcaijwd";
     REQUIRE(Strstr(a, a) == std::strstr(a, a));
     REQUIRE(Strstr(b, b) == std::strstr(b, b));
+    REQUIRE(Strstr(c, b) == std::strstr(c, b));
 }
 
 TEST_CASE("Strcpy") {

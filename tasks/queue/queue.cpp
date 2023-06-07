@@ -1,4 +1,4 @@
-#include "queue.h"
+    #include "queue.h"
 
 Node::Node(int32_t value, Node* next) {
     this->value = value;
@@ -7,8 +7,8 @@ Node::Node(int32_t value, Node* next) {
 
 Queue::Queue() {
     size_ = 0;
-    tail_ = new Node(0, 0);
-    front_ = new Node(0, 0);
+    tail_ = nullptr;
+    front_ = nullptr;
 }
 
 Queue::~Queue() {
@@ -19,8 +19,8 @@ Queue::~Queue() {
 
 void Queue::Push(int32_t value) {
     if (size_ == 0) {
-        front_->value = value;
-        tail_->value = value;
+        tail_ = new Node(value, nullptr);
+        front_ = new Node(value, nullptr);
     } else if (size_ == 1) {
         tail_->value = value;
         front_->next = tail_;
@@ -57,16 +57,8 @@ int32_t Queue::Size() const {
 }
 
 void Queue::Clear() {
-    if (!Empty()) {
-        while (size_ != 1) {
-            auto tmp = front_->next;
-            delete front_;
-            front_ = tmp;
-            --size_;
-        }
-        front_->value = 0;
-        tail_->value = 0;
-        --size_;
+    while (!Empty()) {
+        Pop();
     }
 }
 

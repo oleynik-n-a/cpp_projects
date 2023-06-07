@@ -38,10 +38,12 @@ int Strncmp(const char* first, const char* second, size_t count) {
             return -1;
         }
     }
-    if (Strlen(first) > Strlen(second)) {
+    size_t first_len = count < Strlen(first) ? count : Strlen(first);
+    size_t second_len = count < Strlen(second) ? count : Strlen(second);
+    if (first_len > second_len) {
         return 1;
     }
-    if (Strlen(first) < Strlen(second)) {
+    if (first_len < second_len) {
         return -1;
     }
     return 0;
@@ -144,7 +146,7 @@ const char* Strpbrk(const char* dest, const char* breakset) {
 
 const char* Strstr(const char* str, const char* pattern) {
     if (*pattern == '\0') {
-        return str + Strlen(str);
+        return str;
     }
     for (size_t i = 0, j = 0; i <= Strlen(str); ++i) {
         if (str[i] == pattern[j]) {

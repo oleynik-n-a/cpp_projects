@@ -37,6 +37,15 @@ TEST_CASE("Strncmp") {
     REQUIRE(SameSign(Strncmp(a, a, 0), std::strncmp(a, a, 0)));
     REQUIRE(SameSign(Strncmp(a, aa, 100), std::strncmp(a, aa, 100)));
     REQUIRE(SameSign(Strncmp(b, b, 100), std::strncmp(b, b, 100)));
+
+    const char c[] = "asdf";
+    const char d[] = "asdfasd";
+    REQUIRE(SameSign(Strncmp(c, d, 0), std::strncmp(c, d, 0)));
+    REQUIRE(SameSign(Strncmp(c, d, 1), std::strncmp(c, d, 1)));
+    REQUIRE(SameSign(Strncmp(c, d, 3), std::strncmp(c, d, 3)));
+    REQUIRE(SameSign(Strncmp(c, d, 4), std::strncmp(c, d, 4)));
+    REQUIRE(SameSign(Strncmp(c, d, 5), std::strncmp(c, d, 5)));
+    REQUIRE(SameSign(Strncmp(c, d, 15), std::strncmp(c, d, 15)));
 }
 
 TEST_CASE("Strchr") {
@@ -88,6 +97,9 @@ TEST_CASE("Strstr") {
     REQUIRE(Strstr(a, a) == std::strstr(a, a));
     REQUIRE(Strstr(b, b) == std::strstr(b, b));
     REQUIRE(Strstr(c, b) == std::strstr(c, b));
+
+    REQUIRE(Strstr(a, b) == std::strstr(a, b));
+    REQUIRE(Strstr(b, a) == std::strstr(b, a));
 }
 
 TEST_CASE("Strcpy") {

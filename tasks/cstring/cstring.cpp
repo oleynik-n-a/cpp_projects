@@ -39,7 +39,8 @@ int Strncmp(const char* first, const char* second, size_t count) {
         return 1;
     }
     if (first < second) {
-        return -1;    }
+        return -1;
+    }
     return 0;
 }
 

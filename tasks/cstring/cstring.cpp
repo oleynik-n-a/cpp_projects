@@ -17,10 +17,10 @@ int Strcmp(const char* first, const char* second) {
             return -1;
         }
     }
-    if (first > second) {
+    if (Strlen(first) > Strlen(second)) {
         return 1;
     }
-    if (first < second) {
+    if (Strlen(first) < Strlen(second)) {
         return -1;
     }
     return 0;
@@ -35,12 +35,11 @@ int Strncmp(const char* first, const char* second, size_t count) {
             return -1;
         }
     }
-    if (first > second) {
+    if (Strlen(first) > Strlen(second)) {
         return 1;
     }
-    if (first < second) {
-        return -1;
-    }
+    if (Strlen(first) < Strlen(second)) {
+        return -1;    }
     return 0;
 }
 
@@ -111,13 +110,23 @@ size_t Strspn(const char* dest, const char* src) {
     for (size_t i = 0; i < Strlen(dest); ++i) {
         if (Strchr(src, dest[i]) != nullptr) {
             ++result;
+        } else {
+            break;
         }
     }
     return result;
 }
 
 size_t Strcspn(const char* dest, const char* src) {
-    return Strlen(dest) - Strspn(dest, src);
+    size_t result = 0;
+    for (size_t i = 0; i < Strlen(dest); ++i) {
+        if (Strchr(src, dest[i]) == nullptr) {
+            ++result;
+        } else {
+            break;
+        }
+    }
+    return result;
 }
 
 const char* Strpbrk(const char* dest, const char* breakset) {
@@ -130,6 +139,9 @@ const char* Strpbrk(const char* dest, const char* breakset) {
 }
 
 const char* Strstr(const char* str, const char* pattern) {
+    if (*pattern == '\0') {
+        return str + Strlen(str);
+    }
     for (size_t i = 0, j = 0; i <= Strlen(str); ++i) {
         if (str[i] == str[j]) {
             ++j;

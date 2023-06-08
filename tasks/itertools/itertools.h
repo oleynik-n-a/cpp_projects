@@ -94,7 +94,7 @@ public:
         auto prev = cur_;
         for (;;) {
             ++cur_;
-            if (cur_ == end_ || !(*cur_ == *prev)) {
+            if (cur_ == end_ || *cur_ != *prev) {
                 break;
             }
         }
@@ -106,6 +106,7 @@ public:
         while (next != end_ && *next == *cur_) {
             ++next;
         }
+        return IteratorRange(cur_, next);
     }
 
     bool operator!=(const GroupIterator& rhs) const {

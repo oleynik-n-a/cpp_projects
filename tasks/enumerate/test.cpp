@@ -46,3 +46,4 @@ TEST_CASE("Elementary", "[Enumerate]") {
         }
         REQUIRE(i == 5);
     }
+}

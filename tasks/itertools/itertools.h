@@ -21,7 +21,8 @@ private:
 template <class T>
 class RangeIterator {
 public:
-    RangeIterator(T cur, T step) : cur_(cur), step_(step){}
+    RangeIterator(T cur, T step) : cur_(cur), step_(step) {
+    }
 
     RangeIterator& operator++() {
         cur_ += step_;
@@ -59,7 +60,8 @@ auto Range(T to) {
 template <class LeftIterator, class RightIterator>
 class ZipIterator {
 public:
-    ZipIterator(LeftIterator first, RightIterator second) : first_(first), second_(second) {}
+    ZipIterator(LeftIterator first, RightIterator second) : first_(first), second_(second) {
+    }
 
     ZipIterator& operator++() {
         ++first_;
@@ -88,7 +90,8 @@ auto Zip(const L& left, const R& right) {
 template <class Iterator>
 class GroupIterator {
 public:
-    GroupIterator(Iterator cur, Iterator end) : cur_(cur), end_(end) {}
+    GroupIterator(Iterator cur, Iterator end) : cur_(cur), end_(end) {
+    }
 
     GroupIterator& operator++() {
         auto prev = cur_;

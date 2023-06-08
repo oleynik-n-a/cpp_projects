@@ -3,5 +3,4 @@
 #include <iterator>
 
 template <typename Container>
-auto Reversed(Container& container) {
-}
+auto Reversed(Container& container);

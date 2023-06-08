@@ -2,5 +2,4 @@
 #include <iterator>
 
 template <typename Container>
-auto Enumerate(Container& container) {
-}
+auto Enumerate(Container& container);

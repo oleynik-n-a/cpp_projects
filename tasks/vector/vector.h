@@ -1,6 +1,8 @@
 #pragma once
 
+#include <algorithm>
 #include <initializer_list>
+#include <iterator>
 
 template <class T>
 class Vector {
@@ -101,7 +103,7 @@ public:
         Iterator() {
         }
 
-        explicit Iterator(T* cur) : cur_(cur) {
+        Iterator(T* cur) : cur_(cur) {
         }
 
         Iterator& operator+=(ssize_t diff) {

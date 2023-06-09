@@ -71,7 +71,7 @@ TEST_CASE("Vector iterators 1", "[vector]") {
     {
         auto first = a.Begin();
         auto last = a.End();
-        REQUIRE(last - first == a.Size());
+        REQUIRE(static_cast<size_t>(last - first) == a.Size());
         REQUIRE(*first == 0);
         ++first;
         REQUIRE(*first == 1);

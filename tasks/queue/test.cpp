@@ -35,6 +35,7 @@ TEST_CASE("Long") {
         REQUIRE(i == s.Front());
         s.Pop();
     }
+    s.Pop();
     REQUIRE(true == s.Empty());
     REQUIRE(0u == s.Size());
 }

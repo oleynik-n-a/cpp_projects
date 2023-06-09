@@ -125,7 +125,7 @@ public:
         }
 
         ssize_t operator-(const Iterator& rhs) const {
-            return cur_  - rhs.cur_;
+            return cur_ - rhs.cur_;
         }
 
         Iterator& operator++() {
@@ -183,7 +183,7 @@ public:
     Iterator End() {
         return end();
     }
-    
+
 private:
     T* data_ = nullptr;
     size_t size_ = 0;

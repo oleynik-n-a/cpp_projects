@@ -103,7 +103,7 @@ public:
         Iterator() {
         }
 
-        Iterator(T* cur) : cur_(cur) {
+        explicit Iterator(T* cur) : cur_(cur) {
         }
 
         Iterator& operator+=(ssize_t diff) {

@@ -1,5 +1,6 @@
 #include "readers_util.h"
 
+#include <algorithm>
 #include <iostream>
 
 LimitReader::LimitReader(std::unique_ptr<Reader> reader, size_t limit) : reader_(std::move(reader)), limit_(limit) {

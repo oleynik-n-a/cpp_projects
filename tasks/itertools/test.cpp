@@ -61,7 +61,7 @@ TEST_CASE("Zip short") {
         ++it;
     }
     REQUIRE(it == s.end());
-    REQUIRE(i == s.size());
+    REQUIRE(static_cast<size_t>(i) == s.size());
 }
 
 struct Int {

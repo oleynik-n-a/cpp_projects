@@ -42,7 +42,7 @@ size_t HexDecodingReader::Read(char* buf, size_t len) {
     std::string raw(len * 2, '\0');
     size_t r_len = reader_->Read(&(raw[0]), raw.size());
     for (size_t i = 0; i < r_len; i += 2) {
-        buf[i / 2] = (Hex2Num(raw[i]) << 4) | (Hex2Num(raw[i + 1]));
+        buf[i / 2] = static_cast<char>((Hex2Num(raw[i]) << 4) | (Hex2Num(raw[i + 1])));
     }
     return r_len / 2;
 }

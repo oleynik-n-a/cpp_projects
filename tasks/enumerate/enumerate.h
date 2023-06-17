@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-template<class Iterator>
+template <class Iterator>
 class IteratorRange {
 public:
     IteratorRange(Iterator begin, Iterator end) : begin_(begin), end_(end) {
@@ -20,7 +20,7 @@ private:
     Iterator begin_, end_;
 };
 
-template<class Iterator>
+template <class Iterator>
 class RangeIterator {
 private:
     size_t id_;
@@ -45,7 +45,7 @@ public:
     }
 };
 
-template<class Container>
+template <class Container>
 auto Enumerate(Container& c) {
     return IteratorRange(RangeIterator(0, c.begin()), RangeIterator(std::distance(c.begin(), c.end()), c.end()));
 }

@@ -17,3 +17,8 @@ public:
 private:
     Iterator begin_, end_;
 };
+
+template <class Container>
+auto Reversed(Container& c) {
+    return IteratorRange(c.rbegin(), c.rend());
+}

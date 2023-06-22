@@ -63,9 +63,9 @@ public:
         }
 
         Iterator operator++(int) {
-            auto node = new Iterator(cur_);
+            auto node = Iterator(cur_);
             cur_ = cur_->next_;
-            return *node;
+            return node;
         }
 
         Iterator& operator--() {
@@ -74,9 +74,9 @@ public:
         }
 
         Iterator operator--(int) {
-            auto node = new Iterator(*this);
+            auto node = Iterator(*this);
             cur_ = cur_->prev_;
-            return *node;
+            return node;
         }
 
         T& operator*() const {

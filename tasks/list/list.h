@@ -11,6 +11,7 @@ private:
     public:
         friend class List;
         friend class Iterator;
+
     private:
         T* value_;
         ListNode* next_;
@@ -51,6 +52,7 @@ public:
     class Iterator {
     private:
         ListNode* cur_;
+
     public:
         explicit Iterator(ListNode* cur) : cur_(cur) {
         }
@@ -197,11 +199,11 @@ public:
 };
 
 template <typename T>
-typename List<T>::Iterator begin(List<T>& list) {  //NOLINT
+typename List<T>::Iterator begin(List<T>& list) {  // NOLINT
     return list.Begin();
 }
 
 template <typename T>
-typename List<T>::Iterator end(List<T>& list) {  //NOLINT
+typename List<T>::Iterator end(List<T>& list) {  // NOLINT
     return list.End();
 }

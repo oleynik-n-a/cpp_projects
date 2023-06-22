@@ -18,8 +18,7 @@ public:
     template <typename IteratorType, typename = std::enable_if_t<std::is_base_of_v<std::forward_iterator_tag,
                                      typename std::iterator_traits<IteratorType>::iterator_category>>>
     UnorderedSet(IteratorType first, IteratorType last) {
-        n_elements_ = std::distance(first, last);
-        Reserve(n_elements_);
+        Reserve(std::distance(first, last));
         for (auto i = first; i != last; ++i) {
             Insert(*i);
         }
@@ -28,7 +27,8 @@ public:
     UnorderedSet(const UnorderedSet& other) : n_elements_(other.n_elements_), data_(other.data_) {
     }
 
-    UnorderedSet(UnorderedSet&& other) : n_elements_(other.n_elements_), data_(other.data_) {
+    UnorderedSet(UnorderedSet&& other) : n_elements_(other.n_elements_), data_(std::move(other.data_)) {
+        other.n_elements_ = 0;
     }
 
     ~UnorderedSet() {
@@ -42,7 +42,8 @@ public:
 
     UnorderedSet& operator=(UnorderedSet&& other) {
         n_elements_ = other.n_elements_;
-        data_ = other.data_;
+        other.n_elements_ = 0;
+        data_ = std::move(other.data_);
         return *this;
     }
 
@@ -51,7 +52,7 @@ public:
     }
 
     bool Empty() const {
-        return !n_elements_;
+        return n_elements_ == 0;
     }
 
     void Clear() {
@@ -60,18 +61,18 @@ public:
     }
 
     void Insert(const KeyT& key) {
-        data_[get_hash(key) % data_.size()].push_back(key);
         if (data_.size() <= n_elements_) {
-            Rehash(2 * data_.size());
+            Rehash(data_.empty() ? 1 : 2 * data_.size());
         }
+        data_[get_hash(key) % data_.size()].push_back(key);
         ++n_elements_;
     }
 
     void Insert(KeyT&& key) {
-        data_[get_hash(key) % data_.size()].push_back(key);
         if (data_.size() <= n_elements_) {
-            Rehash(2 * data_.size());
+            Rehash(data_.empty() ? 1 : 2 * data_.size());
         }
+        data_[get_hash(key) % data_.size()].push_back(key);
         ++n_elements_;
     }
 
@@ -96,8 +97,6 @@ public:
     void Rehash(size_t new_bucket_count) {
         if (new_bucket_count < n_elements_) {
             return;
-        } else if (new_bucket_count == 0) {
-            Clear();
         }
 
         UnorderedSet tmp_set;
@@ -105,9 +104,11 @@ public:
         for (size_t i = 0; i < new_bucket_count; ++i) {
             tmp_set.data_.push_back(std::list<KeyT>());
         }
-        for (size_t i = 0; i < data_.size() && !data_.empty(); ++i) {
-            for (auto iterator = data_[i].begin(); iterator != data_[i].end(); ++iterator) {
-                tmp_set.Insert(*iterator);
+        if (!data_.empty()) {
+            for (size_t i = 0; i < data_.size(); ++i) {
+                for (auto iterator = data_[i].begin(); iterator != data_[i].end(); ++iterator) {
+                    tmp_set.Insert(*iterator);
+                }
             }
         }
         data_ = tmp_set.data_;

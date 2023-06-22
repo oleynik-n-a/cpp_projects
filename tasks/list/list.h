@@ -1,53 +1,209 @@
 #pragma once
 
+#include <algorithm>
+#include <iostream>
+#include <utility>
+
 template <typename T>
 class List {
-public:
-    class Iterator {
+private:
+    class ListNode {
     public:
-        Iterator& operator++();
-        Iterator operator++(int);
+        friend class List;
+        friend class Iterator;
 
-        Iterator& operator--();
-        Iterator operator--(int);
+    private:
+        T* value_;
+        ListNode* next_;
+        ListNode* prev_;
 
-        T& operator*() const;
-        T* operator->() const;
+        ListNode() : value_(nullptr), next_(this), prev_(this) {
+        }
 
-        bool operator==(const Iterator& rhs) const;
-        bool operator!=(const Iterator& rhs) const;
+        explicit ListNode(T* value) : value_(value), next_(nullptr), prev_(nullptr) {
+        }
     };
 
-    List();
-    List(const List&);
-    List(List&&);
-    ~List();
+    void Unlink(ListNode* node) {
+        if (node == head_) {
+            return;
+        }
+        auto tmp_next = node->next_;
+        auto tmp_prev = node->prev_;
+        delete node->value_;
+        delete node;
+        tmp_next->prev_ = tmp_prev;
+        tmp_prev->next_ = tmp_next;
+        --size_;
+    }
 
-    List& operator=(const List&);
-    List& operator=(List&&);
+    void LinkAfter(ListNode* target, ListNode* after) {
+        target->next_->prev_ = after;
+        after->next_ = target->next_;
+        target->next_ = after;
+        after->prev_ = target;
+        ++size_;
+    }
 
-    bool IsEmpty() const;
-    size_t Size() const;
+    ListNode* head_;
+    size_t size_;
 
-    void PushBack(const T& elem);
-    void PushBack(T&& elem);
-    void PushFront(const T& elem);
-    void PushFront(T&& elem);
+public:
+    class Iterator {
+    private:
+        ListNode* cur_;
 
-    T& Front();
-    const T& Front() const;
-    T& Back();
-    const T& Back() const;
+    public:
+        explicit Iterator(ListNode* cur) : cur_(cur) {
+        }
 
-    void PopBack();
-    void PopFront();
+        Iterator& operator++() {
+            cur_ = cur_->next_;
+            return *this;
+        }
 
-    Iterator Begin();
-    Iterator End();
+        Iterator operator++(int) {
+            auto node = Iterator(cur_);
+            cur_ = cur_->next_;
+            return node;
+        }
+
+        Iterator& operator--() {
+            cur_ = cur_->prev_;
+            return *this;
+        }
+
+        Iterator operator--(int) {
+            auto node = Iterator(*this);
+            cur_ = cur_->prev_;
+            return node;
+        }
+
+        T& operator*() const {
+            return *cur_->value_;
+        }
+
+        T* operator->() const {
+            return cur_;
+        }
+
+        bool operator==(const Iterator& rhs) const {
+            return cur_ == rhs.cur_;
+        }
+
+        bool operator!=(const Iterator& rhs) const {
+            return cur_ != rhs.cur_;
+        }
+    };
+
+    List() {
+        head_ = new ListNode();
+        size_ = 0;
+    }
+
+    List(const List& list) {
+        head_ = new ListNode();
+        size_ = 0;
+
+        ListNode* cur = list.head_->next_;
+        while (list.head_ != cur) {
+            PushBack(*cur->value_);
+            cur = cur->next_;
+        }
+    }
+
+    List(List&& list) {
+        head_ = list.head_;
+        size_ = list.size_;
+        list.head_ = new ListNode();
+        list.size_ = 0;
+    }
+
+    ~List() {
+        while (!IsEmpty()) {
+            PopBack();
+        }
+        delete head_;
+    }
+
+    List& operator=(const List& list) {
+        List tmp(list);
+        std::swap(head_, tmp.head_);
+        std::swap(size_, tmp.size_);
+        return *this;
+    }
+
+    List& operator=(List&& list) {
+        std::swap(head_, list.head_);
+        std::swap(size_, list.size_);
+        return *this;
+    }
+
+    bool IsEmpty() const {
+        return head_->next_ == head_;
+    }
+
+    size_t Size() const {
+        return size_;
+    }
+
+    void PushBack(const T& elem) {
+        LinkAfter(head_->prev_, new ListNode(new T(elem)));
+    }
+
+    void PushBack(T&& elem) {
+        LinkAfter(head_->prev_, new ListNode(new T(std::move(elem))));
+    }
+
+    void PushFront(const T& elem) {
+        LinkAfter(head_, new ListNode(new T(elem)));
+    }
+
+    void PushFront(T&& elem) {
+        LinkAfter(head_, new ListNode(new T(std::move(elem))));
+    }
+
+    T& Front() {
+        return *head_->next_->value_;
+    }
+
+    const T& Front() const {
+        return *head_->next_->value_;
+    }
+
+    T& Back() {
+        return *head_->prev_->value_;
+    }
+
+    const T& Back() const {
+        return *head_->prev_->value_;
+    }
+
+    void PopBack() {
+        Unlink(head_->prev_);
+    }
+
+    void PopFront() {
+        Unlink(head_->next_);
+    }
+
+    Iterator Begin() {
+        Iterator begin(head_->next_);
+        return begin;
+    }
+
+    Iterator End() {
+        Iterator end(head_);
+        return end;
+    }
 };
 
 template <typename T>
-typename List<T>::Iterator begin(List<T>& list);
+typename List<T>::Iterator begin(List<T>& list) {  // NOLINT
+    return list.Begin();
+}
 
 template <typename T>
-typename List<T>::Iterator end(List<T>& list);
+typename List<T>::Iterator end(List<T>& list) {  // NOLINT
+    return list.End();
+}

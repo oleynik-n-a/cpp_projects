@@ -1,7 +1,12 @@
 #pragma once
 
+#include <functional>
+#include <iterator>
 #include <list>
+#include <type_traits>
+#include <utility>
 #include <vector>
+
 
 #define get_hash(key) std::hash<KeyT>{}(key)
 

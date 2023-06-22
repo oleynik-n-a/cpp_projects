@@ -96,11 +96,12 @@ public:
 
     List() {
         head_ = new ListNode();
+        size_ = 0;
     }
 
     List(const List& list) {
         head_ = new ListNode();
-        size_ = list.size_;
+        size_ = 0;
 
         ListNode* cur = list.head_->next_;
         while (list.head_ != cur) {
@@ -111,7 +112,9 @@ public:
 
     List(List&& list) {
         head_ = list.head_;
-        list.head_ = nullptr;
+        size_ = list.size_;
+        list.head_ = new ListNode();
+        list.size_ = 0;
     }
 
     ~List() {
@@ -129,9 +132,8 @@ public:
     }
 
     List& operator=(List&& list) {
-        List tmp(list);
-        std::swap(head_, tmp.head_);
-        std::swap(size_, tmp.size_);
+        std::swap(head_, list.head_);
+        std::swap(size_, list.size_);
         return *this;
     }
 
@@ -168,11 +170,11 @@ public:
     }
 
     T& Back() {
-        return *head_->next_->value_;
+        return *head_->prev_->value_;
     }
 
     const T& Back() const {
-        return *head_->next_->value_;
+        return *head_->prev_->value_;
     }
 
     void PopBack() {

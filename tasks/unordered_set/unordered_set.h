@@ -7,7 +7,6 @@
 #include <utility>
 #include <vector>
 
-
 #define get_hash(key) std::hash<KeyT>{}(key)
 
 template <typename KeyT>

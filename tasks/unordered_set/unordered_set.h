@@ -15,8 +15,9 @@ public:
         Reserve(count);
     }
 
-    template <typename IteratorType, typename = std::enable_if_t<std::is_base_of_v<std::forward_iterator_tag,
-                                     typename std::iterator_traits<IteratorType>::iterator_category>>>
+    template <typename IteratorType,
+              typename = std::enable_if_t<std::is_base_of_v<
+                  std::forward_iterator_tag, typename std::iterator_traits<IteratorType>::iterator_category>>>
     UnorderedSet(IteratorType first, IteratorType last) {
         Reserve(std::distance(first, last));
         for (auto i = first; i != last; ++i) {

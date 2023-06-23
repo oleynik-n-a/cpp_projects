@@ -54,7 +54,8 @@ public:
     SharedPtr &operator=(const SharedPtr &x) {
         if (counter_->strong_count != 0) {
             --(counter_->strong_count);
-        } else {
+        }
+        if (counter_->strong_count == 0) {
             delete ptr_;
             if (counter_->weak_count == 0) {
                 delete counter_;
@@ -74,7 +75,8 @@ public:
     SharedPtr &operator=(SharedPtr &&x) {
         if (counter_->strong_count != 0) {
             --(counter_->strong_count);
-        } else {
+        }
+        if (counter_->strong_count == 0) {
             delete ptr_;
             if (counter_->weak_count == 0) {
                 delete counter_;
@@ -99,7 +101,8 @@ public:
     ~SharedPtr() {
         if (counter_->strong_count != 0) {
             --(counter_->strong_count);
-        } else {
+        }
+        if (counter_->strong_count == 0) {
             delete ptr_;
             if (counter_->weak_count == 0) {
                 delete counter_;
@@ -170,7 +173,8 @@ public:
         if (counter_ != nullptr) {
             if (counter_->weak_count != 0) {
                 --(counter_->weak_count);
-            } else if (counter_->strong_count == 0) {
+            }
+            if (counter_->strong_count == 0 && counter_->weak_count == 0) {
                 delete counter_;
             }
         }
@@ -191,7 +195,8 @@ public:
         if (counter_ != nullptr) {
             if (counter_->weak_count != 0) {
                 --(counter_->weak_count);
-            } else if (counter_->strong_count == 0) {
+            }
+            if (counter_->strong_count == 0 && counter_->weak_count == 0) {
                 delete counter_;
             }
         }
@@ -207,7 +212,8 @@ public:
         if (counter_ != nullptr) {
             if (counter_->weak_count != 0) {
                 --(counter_->weak_count);
-            } else if (counter_->strong_count == 0) {
+            }
+            if (counter_->strong_count == 0 && counter_->weak_count == 0) {
                 delete counter_;
             }
         }

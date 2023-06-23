@@ -27,21 +27,21 @@ public:
     }
 
     explicit SharedPtr(T *x) {
-        ptr_ = x;
         counter_ = new Counter();
         if (x != nullptr) {
             ++(counter_->strong_count);
         }
+        ptr_ = x;
     }
 
     SharedPtr(const SharedPtr &x) {
-        ptr_ = x.ptr_;
         if (x.ptr_ == nullptr) {
             counter_ = new Counter;
         } else {
             counter_ = x.counter_;
             ++(counter_->strong_count);
         }
+        ptr_ = x.ptr_;
     }
 
     SharedPtr(SharedPtr &&x) {
@@ -61,13 +61,13 @@ public:
             }
         }
 
-        ptr_ = x.ptr_;
         if (x.ptr_ == nullptr) {
             counter_ = new Counter;
         } else {
             counter_ = x.counter_;
             ++(counter_->strong_count);
         }
+        ptr_ = x.ptr_;
         return *this;
     }
 
@@ -116,11 +116,11 @@ public:
             }
         }
 
-        ptr_ = object;
         counter_ = new Counter;
         if (object != nullptr) {
             ++(counter_->strong_count);
         }
+        ptr_ = object;
     }
 };
 
@@ -136,27 +136,27 @@ public:
     WeakPtr() = default;
 
     WeakPtr(const WeakPtr &x) {
-        ptr_ = x.ptr_;
-        shared = x.shared;
-
         if (x.ptr_ == nullptr) {
             counter_ = nullptr;
         } else {
             counter_ = x.counter_;
             ++(counter_->weak_count);
         }
+
+        ptr_ = x.ptr_;
+        shared = x.shared;
     }
 
     explicit WeakPtr(SharedPtr<T> &x) {
-        ptr_ = x.Get();
-        shared = &x;
-
         if (x.Get() == nullptr) {
             counter_ = nullptr;
         } else {
             counter_ = x.counter_;
             ++(counter_->weak_count);
         }
+
+        ptr_ = x.Get();
+        shared = &x;
     }
 
     WeakPtr(WeakPtr &&x) {
@@ -175,8 +175,6 @@ public:
             }
         }
 
-        ptr_ = x.ptr_;
-        shared = x.shared;
         if (x.ptr_ == nullptr) {
             counter_ = nullptr;
         } else {
@@ -184,6 +182,8 @@ public:
             ++(counter_->weak_count);
         }
 
+        ptr_ = x.ptr_;
+        shared = x.shared;
         return *this;
     }
 

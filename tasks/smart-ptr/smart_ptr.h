@@ -217,7 +217,7 @@ public:
     }
 
     bool IsExpired() const {
-        return ptr_ == nullptr || counter_->strong_count == 0;
+        return ptr_ == nullptr || counter_->strong_count == 0 || counter_ == NULL;
     }
 
     SharedPtr<T> Lock() {

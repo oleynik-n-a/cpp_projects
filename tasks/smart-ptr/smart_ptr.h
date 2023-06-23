@@ -101,11 +101,10 @@ public:
     ~SharedPtr() {
         if (counter_->strong_count != 0) {
             --(counter_->strong_count);
-            if (counter_->strong_count == 0) {
-                delete ptr_;
-                if (counter_->weak_count == 0) {
-                    delete counter_;
-                }
+        } else {
+            delete ptr_;
+            if (counter_->weak_count == 0) {
+                delete counter_;
             }
         }
     }
